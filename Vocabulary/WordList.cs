@@ -153,9 +153,9 @@
 
                     return new(fromLanguage, toLanguage, randomWord.Translations);
                 }
-                else throw new Exception("WordList does not contain any words");
+                else throw new Exception($"{Name} does not contain any words");
             }
-            else throw new Exception("WordList does not contain enough languages");
+            else throw new Exception($"{Name} does not contain enough languages");
         }
     }
 }

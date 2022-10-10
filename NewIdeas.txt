@@ -1,0 +1,1 @@
+idé 1: ord kan ha flera betydelser, utöka funktionaliteten av Word att hålla flera översättningar för varje språk så t.ex practice med engelska order "drop" ger rätt på både "tappa" och "droppe".

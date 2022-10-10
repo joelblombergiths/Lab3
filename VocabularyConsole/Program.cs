@@ -152,9 +152,9 @@ void FunctionWords(string[] args)
             else sort = 0;
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(string.Join("\t\t", wordList.Languages));
+            Console.WriteLine(string.Join("\t", wordList.Languages));
             Console.ForegroundColor = ConsoleColor.Gray;
-            wordList.List(sort, x => Console.WriteLine(string.Join("\t\t", x)));
+            wordList.List(sort, x => Console.WriteLine(string.Join("\t", x)));
             Console.WriteLine();
         }
         else Console.WriteLine("Usage:\n-words <listname> {sortByLanguage}\n");
@@ -251,7 +251,7 @@ void FunctionPractice(string[] args)
             Console.WriteLine();
             Console.WriteLine($"Given the {totalWords} words you tried,");
             Console.WriteLine($"you answered {correctWords} correctly,");
-            Console.WriteLine($"that's a success rate of {(float)correctWords / totalWords * 100:f2}%.");
+            Console.WriteLine($"that's a success rate of {(float)correctWords / totalWords * 100:f0}%.");
             Console.WriteLine();
         }
         else Console.WriteLine("Usage:\n-practice <listname>\n");
