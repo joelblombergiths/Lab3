@@ -3,18 +3,16 @@
     public class WordList
     {
         private static readonly DirectoryInfo dataPath = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Vocabulary"));
-        private readonly List<Word> words;
+        private readonly List<Word> words = new();
 
         public string Name { get; }
         public string[] Languages { get; }
-
         public int Count => words.Count;
 
         public WordList(string name, params string[] languages)
         {
-            words = new();
-
             Name = name.ToLower();
+
             Languages = languages
                 .Select(x => x.ToLower())
                 .ToArray();
@@ -45,11 +43,12 @@
             {
                 using TextReader reader = new StreamReader(file.FullName);
 
-                string? getLanguages = reader.ReadLine();
                 string[] languages;
-                if (getLanguages != null && getLanguages.Contains(';'))
+
+                string? languageRow = reader.ReadLine();
+                if (languageRow != null && languageRow.Contains(';'))
                 {
-                    languages = getLanguages
+                    languages = languageRow
                         .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                         .Select(x => x.ToLower())
                         .ToArray();
@@ -58,18 +57,18 @@
 
                 WordList wordList = new(name, languages);
                 
-                string? row;
-                while ((row = reader.ReadLine()) != null)
+                string? wordRow;
+                while ((wordRow = reader.ReadLine()) != null)
                 {
-                    if (row.Contains(';'))
+                    if (wordRow.Contains(';'))
                     {
-                        string[] translations = row
+                        string[] translations = wordRow
                             .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                             .Select(x => x.ToLower())
                             .ToArray();
 
                         if(translations.Length == languages.Length) wordList.Add(translations);
-                        else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{row}\"");
+                        else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{wordRow}\"");
                     }
                     else throw new InvalidDataException("Read error, file is incorrectly formatted");
                 }
@@ -111,7 +110,7 @@
         {
             if (translation >= 0 && translation < Languages.Length)
             {
-                Word? findWord = words.Find(w => w.Translations[translation].Equals(word));
+                Word? findWord = words.Find(w => w.Translations[translation].Equals(word.ToLower()));
                 if (findWord != null)
                 {
                     words.Remove(findWord);
@@ -152,7 +151,7 @@
 
                     Word randomWord = words.ElementAt(Random.Shared.Next(words.Count));
 
-                    return new Word(fromLanguage, toLanguage, randomWord.Translations);
+                    return new(fromLanguage, toLanguage, randomWord.Translations);
                 }
                 else throw new Exception("WordList does not contain any words");
             }
