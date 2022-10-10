@@ -20,9 +20,13 @@ else PrintArgsHelp();
 
 void FunctionLists(string[] args)
 {
-    Console.WriteLine("Available lists:");
-    Console.WriteLine(string.Join("\n", WordList.GetLists()));
-    Console.WriteLine();
+    if (args.Length == 0)
+    {
+        Console.WriteLine("Available lists:");
+        Console.WriteLine(string.Join("\n", WordList.GetLists()));
+        Console.WriteLine();
+    }
+    else Console.WriteLine("Usage:\n-lists\n");
 }
 
 void FunctionNew(string[] args)
@@ -39,7 +43,7 @@ void FunctionNew(string[] args)
 
             FunctionAdd(new string[] { name });
         }
-        else Console.WriteLine("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}");
+        else Console.WriteLine("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}\n");
     }
     catch (Exception ex)
     {
@@ -58,14 +62,18 @@ void FunctionAdd(string[] args)
             WordList wordList = WordList.LoadList(name);
 
             bool done = false;
-            
+
             do
             {
                 List<string> translations = new();
 
                 foreach (string lang in wordList.Languages)
                 {
-                    Console.Write($"Enter word in {lang}: ");
+                    Console.Write($"Enter word in ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(lang);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write(": ");
                     string? input = Console.ReadLine();
 
                     if (string.IsNullOrEmpty(input))
@@ -82,7 +90,7 @@ void FunctionAdd(string[] args)
 
             wordList.Save();
         }
-        else Console.WriteLine("Usage:\n-add <listname>");
+        else Console.WriteLine("Usage:\n-add <listname>\n");
     }
     catch (Exception ex)
     {
@@ -117,7 +125,7 @@ void FunctionRemove(string[] args)
                 }
             }
         }
-        else Console.WriteLine("Usage:\n-remove <listname> <language> <word 1>..{word n}");
+        else Console.WriteLine("Usage:\n-remove <listname> <language> <word 1>..{word n}\n");
     }
     catch (Exception ex)
     {
@@ -143,10 +151,13 @@ void FunctionWords(string[] args)
             }
             else sort = 0;
 
-            wordList.List(sort, x => Console.WriteLine(string.Join(" : ", x)));
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(string.Join("\t\t", wordList.Languages));
+            Console.ForegroundColor = ConsoleColor.Gray;
+            wordList.List(sort, x => Console.WriteLine(string.Join("\t\t", x)));
             Console.WriteLine();
         }
-        else Console.WriteLine("Usage:\n-words <listname> {sortByLanguage}");
+        else Console.WriteLine("Usage:\n-words <listname> {sortByLanguage}\n");
     }
     catch (Exception ex)
     {
@@ -166,7 +177,7 @@ void FunctionCount(string[] args)
             Console.WriteLine($"{wordList.Count} words in the list {name}.");
             Console.WriteLine();
         }
-        else Console.WriteLine("Usage:\n-count <listname>");
+        else Console.WriteLine("Usage:\n-count <listname>\n");
     }
     catch (Exception ex)
     {
@@ -222,7 +233,7 @@ void FunctionPractice(string[] args)
                 {
                     totalWords++;
 
-                    if(input.ToLower() == answerWord)
+                    if (input.ToLower() == answerWord)
                     {
                         correctWords++;
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -240,11 +251,12 @@ void FunctionPractice(string[] args)
             Console.WriteLine();
             Console.WriteLine($"Given the {totalWords} words you tried,");
             Console.WriteLine($"you answered {correctWords} correctly,");
-            Console.WriteLine($"that's a success rate of {((float)correctWords / totalWords) * 100}%.");
+            Console.WriteLine($"that's a success rate of {(float)correctWords / totalWords * 100:f2}%.");
+            Console.WriteLine();
         }
-        else Console.WriteLine("Usage:\n-practice <listname>");
+        else Console.WriteLine("Usage:\n-practice <listname>\n");
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
         Console.WriteLine(ex.Message);
     }
