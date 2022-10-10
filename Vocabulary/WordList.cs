@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Transactions;
-
-namespace Vocabulary
+﻿namespace Vocabulary
 {
     public class WordList
     {
@@ -11,8 +8,7 @@ namespace Vocabulary
         public string Name { get; }
         public string[] Languages { get; }
 
-        //public int Count => words.Sum(word => word.Translations.Length);
-        //public int Count => words.Count;
+        public int Count => words.Count;
 
         public WordList(string name, params string[] languages)
         {
@@ -28,12 +24,15 @@ namespace Vocabulary
         {
             if (dataPath.Exists)
             {
-                return dataPath
+                string[] lists = dataPath
                     .EnumerateFiles("*.dat", SearchOption.TopDirectoryOnly)
                     .Select(file => file.Name)
                     .ToArray();
+
+                if (lists.Length > 0) return lists;
             }
-            else return Array.Empty<string>();
+
+            return new string[] { "No lists found" };
         }
 
         public static WordList LoadList(string name)
@@ -99,7 +98,12 @@ namespace Vocabulary
 
         public void Add(params string[] translations)
         {
-            if (translations.Length == Languages.Length) words.Add(new(translations));            
+            if (translations.Length == Languages.Length) 
+            {
+                words.Add(new(translations
+                    .Select(x => x.ToLower())
+                    .ToArray())); 
+            }
             else throw new ArgumentException($"Wrong number of translations, this WordList has {Languages.Length} languages");
         }
 
@@ -123,7 +127,9 @@ namespace Vocabulary
         {
             if (sortByTranslation >= 0 && sortByTranslation < Languages.Length)
             {
-                foreach (Word word in words)
+                var sorted = words.OrderBy(x => x.Translations[sortByTranslation]);
+
+                foreach (Word word in sorted)
                 {
                     showTranslation(word.Translations);
                 }
