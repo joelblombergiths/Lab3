@@ -1,1 +1,3 @@
 idé 1: ord kan ha flera betydelser, utöka funktionaliteten av Word att hålla flera översättningar för varje språk så t.ex practice med engelska order "drop" ger rätt på både "tappa" och "droppe".
+idé 2: practice gui har 3 radiobuttons med förslag, ett rätt och 2 som slumpas av befintliga ord t.ex som börjar på samma bokstav och eller har samma antal bokstäver, alternativt visar ett påstående där man slumpar ifall det är rätt eller fel
+idé 3: Användande av en databas istället, fördelen kan vara t.ex att en klass av elever kan lära sig samma ord, och man kan tillämpa ett admin gränsninitt för att begränsa tillgång till editeringsläge

@@ -24,13 +24,13 @@
             {
                 string[] lists = dataPath
                     .EnumerateFiles("*.dat", SearchOption.TopDirectoryOnly)
-                    .Select(file => file.Name)
+                    .Select(file => Path.GetFileNameWithoutExtension(file.FullName))
                     .ToArray();
 
                 if (lists.Length > 0) return lists;
             }
 
-            return new string[] { "No lists found" };
+            return Array.Empty<string>();
         }
 
         public static WordList LoadList(string name)

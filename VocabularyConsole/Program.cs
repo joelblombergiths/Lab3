@@ -22,8 +22,14 @@ void FunctionLists(string[] args)
 {
     if (args.Length == 0)
     {
-        Console.WriteLine("Available lists:");
-        Console.WriteLine(string.Join("\n", WordList.GetLists()));
+        string[] lists = WordList.GetLists();
+        if (lists.Length > 0)
+        {
+            Console.WriteLine("Available lists:");
+            Console.WriteLine(string.Join("\n", lists));
+        }
+        else Console.WriteLine("No available lists.");
+
         Console.WriteLine();
     }
     else Console.WriteLine("Usage:\n-lists\n");
