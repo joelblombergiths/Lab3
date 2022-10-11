@@ -72,6 +72,7 @@
             this.Controls.Add(this.lblLoadedList);
             this.Controls.Add(this.btnLoad);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Vocabulary";
             this.ResumeLayout(false);
             this.PerformLayout();
