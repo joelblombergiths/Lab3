@@ -34,7 +34,7 @@
             this.lblLang = new System.Windows.Forms.Label();
             this.pMenu = new System.Windows.Forms.Panel();
             this.gbLoading = new System.Windows.Forms.GroupBox();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
+            this.pbLoadingBar = new System.Windows.Forms.ProgressBar();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -58,7 +58,6 @@
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvList.Enabled = false;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
@@ -107,7 +106,7 @@
             // 
             // gbLoading
             // 
-            this.gbLoading.Controls.Add(this.pbLoading);
+            this.gbLoading.Controls.Add(this.pbLoadingBar);
             this.gbLoading.Location = new System.Drawing.Point(181, 24);
             this.gbLoading.Name = "gbLoading";
             this.gbLoading.Size = new System.Drawing.Size(200, 37);
@@ -116,14 +115,14 @@
             this.gbLoading.Text = "Loading List...";
             this.gbLoading.Visible = false;
             // 
-            // pbLoading
+            // pbLoadingBar
             // 
-            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoading.Location = new System.Drawing.Point(3, 19);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(194, 15);
-            this.pbLoading.Step = 1;
-            this.pbLoading.TabIndex = 0;
+            this.pbLoadingBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoadingBar.Location = new System.Drawing.Point(3, 19);
+            this.pbLoadingBar.Name = "pbLoadingBar";
+            this.pbLoadingBar.Size = new System.Drawing.Size(194, 15);
+            this.pbLoadingBar.Step = 1;
+            this.pbLoadingBar.TabIndex = 0;
             // 
             // btnRemove
             // 
@@ -222,6 +221,6 @@
         private Button btnRemove;
         private Button btnAdd;
         private GroupBox gbLoading;
-        private ProgressBar pbLoading;
+        private ProgressBar pbLoadingBar;
     }
 }

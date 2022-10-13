@@ -4,13 +4,13 @@ namespace VocabularyApp
 {
     public partial class MainForm : Form
     {
-        private WordList? _wordList;
+        private WordList _wordList;
 
-        public void OnListLoaded(object? sender, MessageEvent e)
+        public void OnListSelected(object? sender, ListSelectedEvent e)
         {
             try
             {
-                _wordList = WordList.LoadList(e.Message);
+                _wordList = WordList.LoadList(e.List);
                 lblLoadedList.Text = $"{_wordList.Name} ({_wordList.Count})";
                 btnShow.Enabled = true;
             }
@@ -33,7 +33,7 @@ namespace VocabularyApp
 
             LoadForm loadForm = new();
 
-            loadForm.ListSelected += OnListLoaded;
+            loadForm.ListSelected += OnListSelected;
             loadForm.ShowDialog(this);
         }
 

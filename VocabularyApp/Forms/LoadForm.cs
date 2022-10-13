@@ -4,7 +4,7 @@ namespace VocabularyApp
 {
     public partial class LoadForm : Form
     {
-        public event EventHandler<MessageEvent>? ListSelected;
+        public event EventHandler<ListSelectedEvent>? ListSelected;
         public LoadForm()
         {
             InitializeComponent();
@@ -17,7 +17,7 @@ namespace VocabularyApp
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            if(lbLists.SelectedIndex >= 0)
+            if (lbLists.SelectedItem is not null)
             {
                 ListSelected?.Invoke(this, new(lbLists.SelectedItem.ToString()));
                 Close();
