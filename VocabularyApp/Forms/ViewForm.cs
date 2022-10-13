@@ -36,7 +36,6 @@ namespace VocabularyApp
             if (cbLanguage.Items.Count > 0) cbLanguage.SelectedIndex = 0;
         }
 
-
         public void OnWordLoaded(object? sender, WordLoadedEvent e)
         {
             Invoke(() =>
@@ -132,6 +131,11 @@ namespace VocabularyApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             MessageBox.Show($"adding {addedWords.Count} word(s) and removing {removedWords.Count} word(s)");
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
