@@ -52,20 +52,19 @@
             // dgvList
             // 
             this.dgvList.AllowUserToAddRows = false;
-            this.dgvList.AllowUserToResizeRows = false;
-            this.dgvList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvList.BackgroundColor = System.Drawing.Color.White;
             this.dgvList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
-            this.dgvList.ReadOnly = true;
             this.dgvList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvList.RowTemplate.Height = 25;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvList.ShowEditingIcon = false;
             this.dgvList.Size = new System.Drawing.Size(743, 372);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
