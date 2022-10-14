@@ -33,11 +33,12 @@
             this.cbLanguage = new System.Windows.Forms.ComboBox();
             this.lblLang = new System.Windows.Forms.Label();
             this.pMenu = new System.Windows.Forms.Panel();
-            this.gbLoading = new System.Windows.Forms.GroupBox();
-            this.pbLoadingBar = new System.Windows.Forms.ProgressBar();
+            this.btnClose = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.gbLoading = new System.Windows.Forms.GroupBox();
+            this.pbLoadingBar = new System.Windows.Forms.ProgressBar();
             this.pBody = new System.Windows.Forms.Panel();
             this.rowMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,7 @@
             this.dgvList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvList.RowTemplate.Height = 25;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.Size = new System.Drawing.Size(690, 372);
+            this.dgvList.Size = new System.Drawing.Size(743, 372);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
             // 
@@ -92,7 +93,7 @@
             // 
             // pMenu
             // 
-            this.pMenu.Controls.Add(this.gbLoading);
+            this.pMenu.Controls.Add(this.btnClose);
             this.pMenu.Controls.Add(this.lblLang);
             this.pMenu.Controls.Add(this.btnRemove);
             this.pMenu.Controls.Add(this.cbLanguage);
@@ -101,13 +102,66 @@
             this.pMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pMenu.Location = new System.Drawing.Point(0, 0);
             this.pMenu.Name = "pMenu";
-            this.pMenu.Size = new System.Drawing.Size(690, 85);
+            this.pMenu.Size = new System.Drawing.Size(743, 85);
             this.pMenu.TabIndex = 3;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Enabled = false;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnClose.Location = new System.Drawing.Point(656, 24);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 49);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.Enabled = false;
+            this.btnRemove.Location = new System.Drawing.Point(475, 24);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 49);
+            this.btnRemove.TabIndex = 5;
+            this.btnRemove.Text = "Remove";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Location = new System.Drawing.Point(394, 24);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 49);
+            this.btnAdd.TabIndex = 4;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Enabled = false;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSave.Location = new System.Drawing.Point(575, 24);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 49);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // gbLoading
             // 
+            this.gbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbLoading.Controls.Add(this.pbLoadingBar);
-            this.gbLoading.Location = new System.Drawing.Point(181, 24);
+            this.gbLoading.Location = new System.Drawing.Point(245, 139);
             this.gbLoading.Name = "gbLoading";
             this.gbLoading.Size = new System.Drawing.Size(200, 37);
             this.gbLoading.TabIndex = 6;
@@ -124,49 +178,14 @@
             this.pbLoadingBar.Step = 1;
             this.pbLoadingBar.TabIndex = 0;
             // 
-            // btnRemove
-            // 
-            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.Enabled = false;
-            this.btnRemove.Location = new System.Drawing.Point(502, 24);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 49);
-            this.btnRemove.TabIndex = 5;
-            this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Enabled = false;
-            this.btnAdd.Location = new System.Drawing.Point(421, 24);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 49);
-            this.btnAdd.TabIndex = 4;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Enabled = false;
-            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(602, 24);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 49);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // pBody
             // 
+            this.pBody.Controls.Add(this.gbLoading);
             this.pBody.Controls.Add(this.dgvList);
             this.pBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pBody.Location = new System.Drawing.Point(0, 85);
             this.pBody.Name = "pBody";
-            this.pBody.Size = new System.Drawing.Size(690, 372);
+            this.pBody.Size = new System.Drawing.Size(743, 372);
             this.pBody.TabIndex = 4;
             // 
             // rowMenu
@@ -188,10 +207,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 457);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(743, 457);
             this.Controls.Add(this.pBody);
             this.Controls.Add(this.pMenu);
-            this.MinimumSize = new System.Drawing.Size(473, 393);
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(510, 200);
             this.Name = "ViewForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -223,5 +244,6 @@
         private Button btnAdd;
         private GroupBox gbLoading;
         private ProgressBar pbLoadingBar;
+        private Button btnClose;
     }
 }

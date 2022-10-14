@@ -58,7 +58,7 @@
             this.ClientSize = new System.Drawing.Size(207, 198);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.lbLists);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoadForm";

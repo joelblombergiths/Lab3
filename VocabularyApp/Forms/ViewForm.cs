@@ -1,19 +1,17 @@
 ﻿using Vocabulary;
 
-
 namespace VocabularyApp
 {
     public partial class ViewForm : Form
     {
         private readonly WordList _wordList;
 
-        private readonly List<string[]> addedWords = new();
-        private readonly List<string[]> removedWords = new();
-
-        private int selectedRow;
         private bool wordsLoading;
 
-        private event EventHandler<WordLoadedEvent>? WordLoaded;
+        private int numAddedWords = 0;
+        private int numRemovedWords = 0;
+
+        private event EventHandler<WordEvent>? WordLoaded;
         private event EventHandler? AllWordsLoaded;
 
         public ViewForm(WordList wordList)
@@ -25,6 +23,7 @@ namespace VocabularyApp
             WordLoaded += OnWordLoaded;
             AllWordsLoaded += OnAllWordsLoaded;
         }
+
         private void ViewForm_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < _wordList.Languages.Length; i++)
@@ -36,29 +35,11 @@ namespace VocabularyApp
             if (cbLanguage.Items.Count > 0) cbLanguage.SelectedIndex = 0;
         }
 
-        public void OnWordLoaded(object? sender, WordLoadedEvent e)
+        private void cbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Invoke(() =>
-            {
-                pbLoadingBar.PerformStep();
-                dgvList.Rows.Add(e.Translations);
-            });
-        }
+            int languageId = Array.IndexOf(_wordList.Languages, cbLanguage.SelectedItem.ToString());
 
-        public void OnAllWordsLoaded(object? sender, EventArgs e)
-        {
-            Invoke(() =>
-            {
-                gbLoading.Visible = false;
-                dgvList.Visible = true;
-
-                btnAdd.Enabled = true;
-                btnRemove.Enabled = true;
-                btnSave.Enabled = true;
-                cbLanguage.Enabled = true;
-
-                wordsLoading = false;
-            });
+            ReloadList(languageId);
         }
 
         private void ReloadList(int sort = 0)
@@ -67,9 +48,15 @@ namespace VocabularyApp
             {
                 wordsLoading = true;
 
+                btnAdd.Enabled = false;
+                btnRemove.Enabled = false;
+                btnSave.Enabled = false;
+                btnClose.Enabled = false;
+                cbLanguage.Enabled = false;
+
                 pbLoadingBar.Value = 0;
                 pbLoadingBar.Maximum = _wordList.Count;
-                
+
                 gbLoading.Visible = true;
 
                 dgvList.Visible = false;
@@ -92,15 +79,47 @@ namespace VocabularyApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Load Words\n" + ex.Message);
             }
         }
-
-        private void cbLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        public void OnWordLoaded(object? sender, WordEvent e)
         {
-            int languageId = Array.IndexOf(_wordList.Languages, cbLanguage.SelectedItem.ToString());
+            Invoke(() =>
+            {
+                pbLoadingBar.PerformStep();
+                dgvList.Rows.Add(e.Translations);
+            });
+        }
 
-            ReloadList(languageId);
+        public void OnAllWordsLoaded(object? sender, EventArgs e)
+        {
+            Invoke(() =>
+            {
+                gbLoading.Visible = false;
+                dgvList.Visible = true;
+
+                btnAdd.Enabled = true;
+                btnRemove.Enabled = true;
+                btnSave.Enabled = true;
+                btnClose.Enabled = true;
+                cbLanguage.Enabled = true;
+
+                wordsLoading = false;
+            });
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddForm addForm = new(_wordList);
+            addForm.NewWordAdded += OnWordAdded;
+            addForm.ShowDialog(this);
+        }
+
+        private void OnWordAdded(object? sender, WordEvent e)
+        {
+            _wordList.Add(e.Translations);
+            dgvList.Rows.Add(e.Translations);
+            numAddedWords++;
         }
 
         private void dgvList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -111,7 +130,6 @@ namespace VocabularyApp
             {
                 dgvList.ClearSelection();
 
-                selectedRow = e.RowIndex;
                 dgvList.Rows[e.RowIndex].Selected = true;
 
                 rowMenu.Show(Cursor.Position);
@@ -125,17 +143,55 @@ namespace VocabularyApp
                 "Delete Word",
                 MessageBoxButtons.YesNo);
 
-            if (remove == DialogResult.Yes) dgvList.Rows.RemoveAt(selectedRow);
+            if (remove == DialogResult.Yes) RemoveWord();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            RemoveWord();
+        }
+
+        private void RemoveWord()
+        {
+            if (dgvList.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    _wordList.Remove(0, dgvList.SelectedCells[0].FormattedValue.ToString());
+                    dgvList.Rows.Remove(dgvList.SelectedRows[0]);
+                    numRemovedWords++;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void SaveChanges()
+        {
+            MessageBox.Show($"adding {numAddedWords} word(s) and removing {numRemovedWords} word(s)");
+            _wordList.Save();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"adding {addedWords.Count} word(s) and removing {removedWords.Count} word(s)");
+            SaveChanges();
+            Close();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
+            if(numAddedWords > 0 || numRemovedWords > 0)
+            {
+                DialogResult save = MessageBox.Show("Save changes to disk?",
+                                "Unsaved Changes",
+                                MessageBoxButtons.YesNo);
 
+                if (save == DialogResult.Yes) SaveChanges();
+            }
+
+            Close();
         }
     }
 }
