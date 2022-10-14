@@ -26,7 +26,7 @@ namespace VocabularyApp
                 lbLanguages.Items.Add(language);
             }
 
-            if (lbLanguages.Items.Count > 0) lbLanguages.SelectedIndex = 0;
+            if (lbLanguages.Items.Count > 0) lbLanguages.SelectedIndex = 0;            
         }
 
         private void lbLanguages_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,11 +37,8 @@ namespace VocabularyApp
 
                 gbLang.Text = $"Translation in {lang}";
                 txtTranslation.Text = wordTranslations[lang];
+                txtTranslation.Focus();
             }
-        }
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void txtTranslation_Leave(object sender, EventArgs e)
@@ -51,6 +48,20 @@ namespace VocabularyApp
                 string lang = lbLanguages.SelectedItem.ToString();
 
                 wordTranslations[lang] = txtTranslation.Text;
+            }
+        }
+
+        private void txtTranslation_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                int currentLanguage = lbLanguages.SelectedIndex;
+
+                if (currentLanguage >= 0 &&
+                    lbLanguages.SelectedIndex < lbLanguages.Items.Count - 1)
+                {
+                    lbLanguages.SelectedIndex = currentLanguage + 1;
+                }
             }
         }
 
@@ -69,6 +80,10 @@ namespace VocabularyApp
                 Close();
             }
             else MessageBox.Show("All languages needs translations");
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

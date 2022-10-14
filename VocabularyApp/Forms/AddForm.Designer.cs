@@ -81,6 +81,7 @@
             this.txtTranslation.Name = "txtTranslation";
             this.txtTranslation.Size = new System.Drawing.Size(188, 23);
             this.txtTranslation.TabIndex = 0;
+            this.txtTranslation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTranslation_KeyDown);
             this.txtTranslation.Leave += new System.EventHandler(this.txtTranslation_Leave);
             // 
             // AddForm

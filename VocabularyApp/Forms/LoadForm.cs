@@ -17,7 +17,7 @@ namespace VocabularyApp
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            if (lbLists.SelectedItem is not null)
+            if (lbLists.SelectedIndex >= 0)
             {
                 ListSelected?.Invoke(this, new(lbLists.SelectedItem.ToString()));
                 Close();
