@@ -50,9 +50,17 @@
             this.btnPractice = new System.Windows.Forms.Button();
             this.txtGuess = new System.Windows.Forms.TextBox();
             this.lblPractice = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblSuccessPercentage = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblNumCorrectGuesses = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblNumWordInSession = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.gbStats.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -64,7 +72,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(1384, 35);
+            this.menuStrip.Size = new System.Drawing.Size(1643, 35);
             this.menuStrip.TabIndex = 4;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -82,26 +90,26 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(153, 34);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(153, 34);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.LoadToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(153, 34);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -117,7 +125,7 @@
             // 
             this.showWordsToolStripMenuItem.Enabled = false;
             this.showWordsToolStripMenuItem.Name = "showWordsToolStripMenuItem";
-            this.showWordsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.showWordsToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
             this.showWordsToolStripMenuItem.Text = "Show Words";
             this.showWordsToolStripMenuItem.Click += new System.EventHandler(this.ShowWordsToolStripMenuItem_Click);
             // 
@@ -264,11 +272,81 @@
             this.lblPractice.Text = "Load a word list";
             this.lblPractice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblSuccessPercentage);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.lblNumCorrectGuesses);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.lblNumWordInSession);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Location = new System.Drawing.Point(1378, 49);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(256, 275);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Practice stats";
+            // 
+            // lblSuccessPercentage
+            // 
+            this.lblSuccessPercentage.Location = new System.Drawing.Point(194, 117);
+            this.lblSuccessPercentage.Name = "lblSuccessPercentage";
+            this.lblSuccessPercentage.Size = new System.Drawing.Size(62, 25);
+            this.lblSuccessPercentage.TabIndex = 5;
+            this.lblSuccessPercentage.Text = "0";
+            this.lblSuccessPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 117);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 25);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Success rate";
+            // 
+            // lblNumCorrectGuesses
+            // 
+            this.lblNumCorrectGuesses.AutoSize = true;
+            this.lblNumCorrectGuesses.Location = new System.Drawing.Point(216, 81);
+            this.lblNumCorrectGuesses.Name = "lblNumCorrectGuesses";
+            this.lblNumCorrectGuesses.Size = new System.Drawing.Size(22, 25);
+            this.lblNumCorrectGuesses.TabIndex = 3;
+            this.lblNumCorrectGuesses.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 81);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(181, 25);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "# of correct guesses: ";
+            // 
+            // lblNumWordInSession
+            // 
+            this.lblNumWordInSession.AutoSize = true;
+            this.lblNumWordInSession.Location = new System.Drawing.Point(216, 44);
+            this.lblNumWordInSession.Name = "lblNumWordInSession";
+            this.lblNumWordInSession.Size = new System.Drawing.Size(22, 25);
+            this.lblNumWordInSession.TabIndex = 1;
+            this.lblNumWordInSession.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 44);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(204, 25);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "# of words this session: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 340);
+            this.ClientSize = new System.Drawing.Size(1643, 340);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbStats);
             this.Controls.Add(this.menuStrip);
@@ -285,6 +363,8 @@
             this.gbStats.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,5 +393,12 @@
         private Button btnGuess;
         private Button btnPractice;
         private TextBox txtGuess;
+        private GroupBox groupBox2;
+        private Label lblSuccessPercentage;
+        private Label label8;
+        private Label lblNumCorrectGuesses;
+        private Label label10;
+        private Label lblNumWordInSession;
+        private Label label12;
     }
 }

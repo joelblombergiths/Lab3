@@ -15,7 +15,17 @@ namespace VocabularyApp
             lbLists.Items.AddRange(WordList.GetLists());
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void BtnLoad_Click(object sender, EventArgs e)
+        {
+            LoadList();
+        }
+
+        private void LbLists_DoubleClick(object sender, EventArgs e)
+        {
+            LoadList();
+        }
+
+        private void LoadList()
         {
             if (lbLists.SelectedItem != null)
             {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Vocabulary;
 
 namespace VocabularyApp
@@ -31,6 +32,32 @@ namespace VocabularyApp
         {           
             LoadList(e.List);
         }
+          
+        private void LoadList(string name)
+        {
+            try
+            {
+                _wordList = WordList.LoadList(name);                
+                showWordsToolStripMenuItem.Enabled = true;
+
+                UpdateListStats();
+
+                practiceActive = false;
+                lblPractice.Text = "Press start to begin learning session";
+                btnPractice.Enabled = true;
+                btnGuess.Enabled = false;
+                txtGuess.Enabled = false;
+                UpdatePracticeStats(true);
+
+            }
+            catch (Exception ex)
+            {
+                gbStats.Text = "No list loaded";
+                lblPractice.Text = "Load a word list";
+                showWordsToolStripMenuItem.Enabled = false;
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         private void ShowWordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -42,38 +69,18 @@ namespace VocabularyApp
                 LoadList(_wordList.Name);
             }
         }
-      
-        private void LoadList(string name)
-        {
-            try
-            {
-                _wordList = WordList.LoadList(name);                
-                showWordsToolStripMenuItem.Enabled = true;
 
-                lblPractice.Text = "Press start to begin learning session";
-                btnPractice.Enabled = true;
-
-                UpdateStats();
-            }
-            catch (Exception ex)
-            {
-                gbStats.Text = "No list loaded";
-                showWordsToolStripMenuItem.Enabled = false;
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void UpdateStats()
+        private void UpdateListStats()
         {
             gbStats.Text = _wordList?.Name;
             lblNumWords.Text = _wordList?.Count.ToString();
             lblNumLanguages.Text = _wordList?.Languages.Length.ToString();
 
             List<string[]> translations = new();
-            _wordList?.List(0, x => translations.Add(x));
+            _wordList?.List(0, t => translations.Add(t));
 
             lblNumTranslations.Text = translations
-                .Select(x => x.Length)
+                .Select(t => t.Length)
                 .Sum()
                 .ToString();
 
@@ -81,12 +88,7 @@ namespace VocabularyApp
                 .SelectMany(t => t.Select(x => x.Length))
                 .Average()
                 .ToString("f0");
-        }
-
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
+        }        
 
         private void BtnPractice_Click(object sender, EventArgs e)
         {
@@ -103,7 +105,6 @@ namespace VocabularyApp
                     practiceResult = new();
 
                     btnPractice.Text = "Next Word";
-                    txtGuess.Enabled = true;
 
                     ShowNextPracticeWord();
                 }
@@ -126,6 +127,8 @@ namespace VocabularyApp
 
             btnPractice.Enabled = false;
             btnGuess.Enabled = true;
+            txtGuess.Enabled = true;
+            txtGuess.Focus();
         }
 
         private void BtnGuess_Click(object sender, EventArgs e)
@@ -152,14 +155,33 @@ namespace VocabularyApp
                 lblPractice.Text = $"Incorrect, the translation is {practiceResult.CurrentWord.ToUpper()}";
             }
 
+            UpdatePracticeStats();
+
             txtGuess.ResetText();
+            txtGuess.Enabled = false;
             btnPractice.Enabled = true;
             btnGuess.Enabled = false;
         }
 
-        private void showWordsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void UpdatePracticeStats(bool reset = false)
         {
+            if(reset)
+            {
+                lblNumWordInSession.Text = "0";
+                lblNumCorrectGuesses.Text = "0";
+                lblSuccessPercentage.Text = "0";
+            }
+            else
+            {
+                lblNumWordInSession.Text = practiceResult.Total.ToString();
+                lblNumCorrectGuesses.Text = practiceResult.Correct.ToString();
+                lblSuccessPercentage.Text = $"{practiceResult.SuccessRateProcentage:f0}%";
+            }
+        }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
