@@ -1,10 +1,10 @@
 ﻿namespace VocabularyApp
 {
-    public class ListSelectedEvent : EventArgs
+    public class ListEvent : EventArgs
     {
         public string List { get; set; }
 
-        public ListSelectedEvent(string list)
+        public ListEvent(string list)
         {
             List = list;
         }

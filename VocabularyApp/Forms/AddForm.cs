@@ -57,15 +57,23 @@ namespace VocabularyApp
             {
                 int currentLanguage = lbLanguages.SelectedIndex;
 
-                if (currentLanguage >= 0 &&
-                    lbLanguages.SelectedIndex < lbLanguages.Items.Count - 1)
+                if (currentLanguage >= 0)
                 {
-                    lbLanguages.SelectedIndex = currentLanguage + 1;
+                    if (lbLanguages.SelectedIndex < lbLanguages.Items.Count - 1)
+                    {
+                        lbLanguages.SelectedIndex = currentLanguage + 1;
+                    }
+                    else Done();
                 }
             }
         }
 
         private void btnDone_Click(object sender, EventArgs e)
+        {
+            Done();
+        }
+
+        private void Done()
         {
             if (wordTranslations.All(x => !string.IsNullOrEmpty(x.Value)))
             {
@@ -81,6 +89,7 @@ namespace VocabularyApp
             }
             else MessageBox.Show("All languages needs translations");
         }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
