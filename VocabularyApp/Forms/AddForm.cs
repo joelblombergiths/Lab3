@@ -5,7 +5,6 @@ namespace VocabularyApp
     public partial class AddForm : Form
     {
         private readonly WordList _wordlist;
-
         private readonly Dictionary<string, string> wordTranslations;
 
         public event EventHandler<WordEvent>? NewWordAdded;
@@ -39,7 +38,7 @@ namespace VocabularyApp
                 if (currentLanguage < lbLanguages.Items.Count - 1) btnNext.Enabled = true;
                 else btnNext.Enabled = false;
                 
-                string? language = lbLanguages.SelectedItem.ToString();
+                string? language = lbLanguages.SelectedItem?.ToString();
                 if (language != null)
                 {
                     gbLang.Text = $"Add translation in {language}";
@@ -101,7 +100,12 @@ namespace VocabularyApp
                 NewWordAdded?.Invoke(null, new(t.ToArray()));
                 Close();
             }
-            else MessageBox.Show("All languages needs translations");
+            else
+            {
+                MessageBox.Show("All languages needs translations");
+                string language = wordTranslations.First(x => string.IsNullOrEmpty(x.Value)).Key;
+                lbLanguages.SelectedItem = language;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
