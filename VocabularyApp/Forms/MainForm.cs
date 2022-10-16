@@ -121,7 +121,7 @@ namespace VocabularyApp
         {
             Word practiceWord = _wordList.GetWordToPractice();
 
-            string fromLang = _wordList.Languages[practiceWord.FromLanguage];
+            string? fromLang = _wordList.Languages[practiceWord.FromLanguage];
             string fromWord = practiceWord.Translations[practiceWord.FromLanguage];
 
             string toLang = _wordList.Languages[practiceWord.ToLanguage];

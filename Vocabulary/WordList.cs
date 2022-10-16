@@ -2,7 +2,10 @@
 {
     public class WordList
     {
-        private static readonly DirectoryInfo dataPath = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Vocabulary"));
+        private static readonly DirectoryInfo dataPath = new(Path
+            .Combine(Environment
+            .GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Vocabulary"));
+
         private readonly List<Word> words = new();
 
         public string Name { get; }
@@ -39,7 +42,7 @@
 
             FileInfo file = new(Path.Combine(dataPath.FullName, $"{name}.dat"));
 
-            if(file.Exists)
+            if (file.Exists)
             {
                 using TextReader reader = new StreamReader(file.FullName);
 
@@ -56,7 +59,7 @@
                 else throw new InvalidDataException("Read error, file is incorrectly formatted");
 
                 WordList wordList = new(name, languages);
-                
+
                 string? wordRow;
                 while ((wordRow = reader.ReadLine()) != null)
                 {
@@ -67,7 +70,7 @@
                             .Select(x => x.ToLower())
                             .ToArray();
 
-                        if(translations.Length == languages.Length) wordList.Add(translations);
+                        if (translations.Length == languages.Length) wordList.Add(translations);
                         else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{wordRow}\"");
                     }
                     else throw new InvalidDataException("Read error, file is incorrectly formatted");
@@ -87,7 +90,7 @@
 
             writer.WriteLine(string.Join(";", Languages));
 
-            foreach(Word word in words)
+            foreach (Word word in words)
             {
                 writer.WriteLine(string.Join(";", word.Translations));
             }
@@ -97,11 +100,11 @@
 
         public void Add(params string[] translations)
         {
-            if (translations.Length == Languages.Length) 
+            if (translations.Length == Languages.Length)
             {
                 words.Add(new(translations
                     .Select(x => x.ToLower())
-                    .ToArray())); 
+                    .ToArray()));
             }
             else throw new ArgumentException($"Wrong number of translations, this WordList has {Languages.Length} languages");
         }
