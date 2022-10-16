@@ -26,46 +26,60 @@ namespace VocabularyApp
                 lbLanguages.Items.Add(language);
             }
 
-            if (lbLanguages.Items.Count > 0) lbLanguages.SelectedIndex = 0;            
+            if (lbLanguages.Items.Count > 0) lbLanguages.SelectedIndex = 0;
+
+            ActiveControl = txtTranslation;
         }
 
         private void lbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbLanguages.SelectedIndex >= 0)
+            int currentLanguage = lbLanguages.SelectedIndex;
+            if (currentLanguage >= 0)
             {
-                string lang = lbLanguages.SelectedItem.ToString();
-
-                gbLang.Text = $"Translation in {lang}";
-                txtTranslation.Text = wordTranslations[lang];
-                txtTranslation.Focus();
+                if (currentLanguage < lbLanguages.Items.Count - 1) btnNext.Enabled = true;
+                else btnNext.Enabled = false;
+                
+                string? language = lbLanguages.SelectedItem.ToString();
+                if (language != null)
+                {
+                    gbLang.Text = $"Add translation in {language}";
+                    txtTranslation.Text = wordTranslations[language];
+                    txtTranslation.Focus();
+                }
             }
         }
 
         private void txtTranslation_Leave(object sender, EventArgs e)
         {
-            if (lbLanguages.SelectedIndex >= 0)
-            {
-                string lang = lbLanguages.SelectedItem.ToString();
-
-                wordTranslations[lang] = txtTranslation.Text;
-            }
+            SaveWord();
         }
 
         private void txtTranslation_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
-                int currentLanguage = lbLanguages.SelectedIndex;
+                SaveWord();
 
-                if (currentLanguage >= 0)
-                {
-                    if (lbLanguages.SelectedIndex < lbLanguages.Items.Count - 1)
-                    {
-                        lbLanguages.SelectedIndex = currentLanguage + 1;
-                    }
-                    else Done();
-                }
+                if (lbLanguages.SelectedIndex == lbLanguages.Items.Count - 1) Done();
+                else GotoNextLanguage();
             }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            SaveWord();
+            GotoNextLanguage();
+        }
+
+        private void SaveWord()
+        {
+            string? language = lbLanguages.SelectedItem?.ToString();
+            if (language != null) wordTranslations[language] = txtTranslation.Text;
+        }
+        private void GotoNextLanguage()
+        {
+            int currentLanguage = lbLanguages.SelectedIndex;
+            if (currentLanguage >= 0 && currentLanguage < lbLanguages.Items.Count - 1) lbLanguages.SelectedIndex++;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -93,6 +107,6 @@ namespace VocabularyApp
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }       
     }
 }

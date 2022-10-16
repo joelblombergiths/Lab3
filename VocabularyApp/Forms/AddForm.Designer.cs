@@ -33,12 +33,15 @@
             this.lbLanguages = new System.Windows.Forms.ListBox();
             this.gbLang = new System.Windows.Forms.GroupBox();
             this.txtTranslation = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnNext = new System.Windows.Forms.Button();
             this.gbLang.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDone
             // 
-            this.btnDone.Location = new System.Drawing.Point(252, 82);
+            this.btnDone.Location = new System.Drawing.Point(268, 146);
             this.btnDone.Name = "btnDone";
             this.btnDone.Size = new System.Drawing.Size(75, 35);
             this.btnDone.TabIndex = 0;
@@ -48,7 +51,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(171, 82);
+            this.btnCancel.Location = new System.Drawing.Point(187, 146);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 35);
             this.btnCancel.TabIndex = 1;
@@ -58,18 +61,19 @@
             // 
             // lbLanguages
             // 
+            this.lbLanguages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbLanguages.FormattingEnabled = true;
             this.lbLanguages.ItemHeight = 15;
-            this.lbLanguages.Location = new System.Drawing.Point(12, 12);
+            this.lbLanguages.Location = new System.Drawing.Point(3, 19);
             this.lbLanguages.Name = "lbLanguages";
-            this.lbLanguages.Size = new System.Drawing.Size(109, 109);
+            this.lbLanguages.Size = new System.Drawing.Size(119, 147);
             this.lbLanguages.TabIndex = 2;
             this.lbLanguages.SelectedIndexChanged += new System.EventHandler(this.lbLanguages_SelectedIndexChanged);
             // 
             // gbLang
             // 
             this.gbLang.Controls.Add(this.txtTranslation);
-            this.gbLang.Location = new System.Drawing.Point(127, 12);
+            this.gbLang.Location = new System.Drawing.Point(143, 12);
             this.gbLang.Name = "gbLang";
             this.gbLang.Size = new System.Drawing.Size(200, 62);
             this.gbLang.TabIndex = 3;
@@ -84,14 +88,35 @@
             this.txtTranslation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTranslation_KeyDown);
             this.txtTranslation.Leave += new System.EventHandler(this.txtTranslation_Leave);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbLanguages);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(125, 169);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Select Language";
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(143, 80);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(200, 23);
+            this.btnNext.TabIndex = 5;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(335, 129);
+            this.ClientSize = new System.Drawing.Size(348, 188);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbLang);
-            this.Controls.Add(this.lbLanguages);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDone);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -106,6 +131,7 @@
             this.Load += new System.EventHandler(this.AddForm_Load);
             this.gbLang.ResumeLayout(false);
             this.gbLang.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -117,5 +143,7 @@
         private ListBox lbLanguages;
         private GroupBox gbLang;
         private TextBox txtTranslation;
+        private GroupBox groupBox1;
+        private Button btnNext;
     }
 }

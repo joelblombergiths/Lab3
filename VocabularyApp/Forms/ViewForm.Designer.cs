@@ -69,7 +69,6 @@
             this.dgvList.ShowEditingIcon = false;
             this.dgvList.Size = new System.Drawing.Size(1061, 620);
             this.dgvList.TabIndex = 0;
-            this.dgvList.SelectionChanged += new System.EventHandler(this.dgvList_SelectionChanged);
             this.dgvList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvList_MouseDown);
             // 
             // cbLanguage

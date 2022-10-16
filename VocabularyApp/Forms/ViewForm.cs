@@ -9,21 +9,13 @@ namespace VocabularyApp
         private bool wordsLoading;
 
         private int numAddedWords = 0;
-        private int numRemovedWords = 0;
-
-        private DataGridViewRow? currentRow;
-
-        private event EventHandler<WordEvent>? WordLoaded;
-        private event EventHandler? AllWordsLoaded;
+        private int numRemovedWords = 0;       
 
         public ViewForm(WordList wordList)
         {
             InitializeComponent();
 
             _wordList = wordList;
-
-            WordLoaded += OnWordLoaded;
-            AllWordsLoaded += OnAllWordsLoaded;
         }
 
         private void ViewForm_Load(object sender, EventArgs e)
@@ -64,37 +56,37 @@ namespace VocabularyApp
                 dgvList.Visible = false;
                 dgvList.Rows.Clear();
 
-                Task.Run(() => LoadWords(_wordList, sort));
+                Task.Run(() => LoadWords(sort, _wordList));
             }
         }
 
-        private void LoadWords(WordList wordList, int sort)
+        private void LoadWords(int sort, WordList wordList)
         {
             try
             {
-                wordList.List(sort, word =>
+                wordList.List(sort, translations =>
                 {
-                    WordLoaded?.Invoke(null, new(word));
+                    LoadWord(translations);
                 });
 
-                AllWordsLoaded?.Invoke(null, EventArgs.Empty);
+                LoadWordsComplete();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Load Words\n" + ex.Message);
+                MessageBox.Show("Load Words failed\n" + ex.Message);
             }
         }
 
-        public void OnWordLoaded(object? sender, WordEvent e)
+        private void LoadWord(string[] translations)
         {
             Invoke(() =>
             {
                 pbLoadingBar.PerformStep();
-                dgvList.Rows.Add(e.Translations);
+                dgvList.Rows.Add(translations);
             });
         }
 
-        public void OnAllWordsLoaded(object? sender, EventArgs e)
+        private void LoadWordsComplete()
         {
             Invoke(() =>
             {
@@ -113,15 +105,15 @@ namespace VocabularyApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Add();
+            AddWord();
         }
 
         private void addWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Add();
+            AddWord();
         }
 
-        private void Add()
+        private void AddWord()
         {
             AddForm addForm = new(_wordList);
             addForm.NewWordAdded += OnWordAdded;
@@ -149,7 +141,7 @@ namespace VocabularyApp
         {
             try
             {
-                if (currentRow != null)
+                if (dgvList.SelectedRows.Count > 0)
                 {
                     DialogResult remove = MessageBox
                        .Show("Are you sure you want to delete this word?",
@@ -158,9 +150,15 @@ namespace VocabularyApp
 
                     if (remove == DialogResult.Yes)
                     {
-                        _wordList.Remove(0, currentRow.Cells[0].Value.ToString());
-                        dgvList.Rows.Remove(currentRow);
-                        numRemovedWords++;
+                        DataGridViewRow selectedRow = dgvList.SelectedRows[0];
+
+                        string? word = selectedRow.Cells[0].Value.ToString();
+                        if (word != null)
+                        {
+                            _wordList.Remove(0, word);
+                            dgvList.Rows.Remove(selectedRow);
+                            numRemovedWords++;
+                        }
                     }
                 }
             }
@@ -168,12 +166,6 @@ namespace VocabularyApp
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void SaveChanges()
-        {
-            MessageBox.Show($"adding {numAddedWords} word(s) and removing {numRemovedWords} word(s)");
-            _wordList.Save();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -196,6 +188,12 @@ namespace VocabularyApp
             Close();
         }
 
+        private void SaveChanges()
+        {
+            MessageBox.Show($"adding {numAddedWords} word(s) and removing {numRemovedWords} word(s)");
+            _wordList.Save();
+        }
+
         private void dgvList_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -208,18 +206,12 @@ namespace VocabularyApp
                 }
                 else
                 {
-                    currentRow = dgvList.Rows[mouseHit.RowIndex];
                     dgvList.Rows[mouseHit.RowIndex].Selected = true;
                     rowMenu.Items["removeWordToolStripMenuItem"].Enabled = true;
                 }
 
                 rowMenu.Show(dgvList, e.X, e.Y);
             }
-        }
-
-        private void dgvList_SelectionChanged(object sender, EventArgs e)
-        {
-            currentRow = dgvList.CurrentRow;
-        }
+        }   
     }
 }
