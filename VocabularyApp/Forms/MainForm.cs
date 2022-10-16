@@ -43,12 +43,15 @@ namespace VocabularyApp
                 UpdateListStats();
 
                 practiceActive = false;
+
                 lblPractice.Text = "Press start to begin learning session";
+                btnPractice.Text = "Start";
                 btnPractice.Enabled = true;
+
                 btnGuess.Enabled = false;
                 txtGuess.Enabled = false;
+                
                 UpdatePracticeStats(true);
-
             }
             catch (Exception ex)
             {
@@ -79,15 +82,18 @@ namespace VocabularyApp
             List<string[]> translations = new();
             _wordList?.List(0, t => translations.Add(t));
 
-            lblNumTranslations.Text = translations
-                .Select(t => t.Length)
-                .Sum()
-                .ToString();
+            if (translations.Count > 0)
+            {
+                lblNumTranslations.Text = translations
+                    .Select(t => t.Length)
+                    .Sum()
+                    .ToString();
 
-            lblAverageWordLength.Text = translations
-                .SelectMany(t => t.Select(x => x.Length))
-                .Average()
-                .ToString("f0");
+                lblAverageWordLength.Text = translations
+                    .SelectMany(t => t.Select(x => x.Length))
+                    .Average()
+                    .ToString("f0");
+            }
         }        
 
         private void BtnPractice_Click(object sender, EventArgs e)
@@ -99,6 +105,7 @@ namespace VocabularyApp
             else
             {
                 if (_wordList == null) MessageBox.Show("Load a word list first!");
+                else if (_wordList.Count <= 0) MessageBox.Show("No words in list!");
                 else
                 {
                     practiceActive = true;

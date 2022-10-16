@@ -72,9 +72,9 @@ namespace VocabularyApp
         {
             try
             {
-                wordList.List(sort, x =>
+                wordList.List(sort, word =>
                 {
-                    WordLoaded?.Invoke(null, new(x));
+                    WordLoaded?.Invoke(null, new(word));
                 });
 
                 AllWordsLoaded?.Invoke(null, EventArgs.Empty);
@@ -215,6 +215,11 @@ namespace VocabularyApp
 
                 rowMenu.Show(dgvList, e.X, e.Y);
             }
+        }
+
+        private void dgvList_SelectionChanged(object sender, EventArgs e)
+        {
+            currentRow = dgvList.CurrentRow;
         }
     }
 }
