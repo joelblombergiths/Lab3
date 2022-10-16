@@ -69,7 +69,7 @@
             this.dgvList.ShowEditingIcon = false;
             this.dgvList.Size = new System.Drawing.Size(1061, 620);
             this.dgvList.TabIndex = 0;
-            this.dgvList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvList_MouseDown);
+            this.dgvList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DgvList_MouseDown);
             // 
             // cbLanguage
             // 
@@ -82,7 +82,7 @@
             this.cbLanguage.Name = "cbLanguage";
             this.cbLanguage.Size = new System.Drawing.Size(177, 33);
             this.cbLanguage.TabIndex = 1;
-            this.cbLanguage.SelectedIndexChanged += new System.EventHandler(this.cbLanguage_SelectedIndexChanged);
+            this.cbLanguage.SelectedIndexChanged += new System.EventHandler(this.CbLanguage_SelectedIndexChanged);
             // 
             // pMenu
             // 
@@ -111,7 +111,7 @@
             this.btnClose.TabIndex = 7;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // lblLang
             // 
@@ -134,7 +134,7 @@
             this.btnRemove.TabIndex = 5;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // btnAdd
             // 
@@ -147,7 +147,7 @@
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // btnSave
             // 
@@ -161,7 +161,7 @@
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // gbLoading
             // 
@@ -214,14 +214,14 @@
             this.addWordToolStripMenuItem.Name = "addWordToolStripMenuItem";
             this.addWordToolStripMenuItem.Size = new System.Drawing.Size(197, 32);
             this.addWordToolStripMenuItem.Text = "Add Word";
-            this.addWordToolStripMenuItem.Click += new System.EventHandler(this.addWordToolStripMenuItem_Click);
+            this.addWordToolStripMenuItem.Click += new System.EventHandler(this.AddWordToolStripMenuItem_Click);
             // 
             // removeWordToolStripMenuItem
             // 
             this.removeWordToolStripMenuItem.Name = "removeWordToolStripMenuItem";
             this.removeWordToolStripMenuItem.Size = new System.Drawing.Size(197, 32);
             this.removeWordToolStripMenuItem.Text = "Remove Word";
-            this.removeWordToolStripMenuItem.Click += new System.EventHandler(this.removeWordToolStripMenuItem_Click);
+            this.removeWordToolStripMenuItem.Click += new System.EventHandler(this.RemoveWordToolStripMenuItem_Click);
             // 
             // ViewForm
             // 

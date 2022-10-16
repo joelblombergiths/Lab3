@@ -9,7 +9,7 @@ namespace VocabularyApp
         private bool wordsLoading;
 
         private int numAddedWords = 0;
-        private int numRemovedWords = 0;       
+        private int numRemovedWords = 0;
 
         public ViewForm(WordList wordList)
         {
@@ -29,7 +29,7 @@ namespace VocabularyApp
             if (cbLanguage.Items.Count > 0) cbLanguage.SelectedIndex = 0;
         }
 
-        private void cbLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             int languageId = Array.IndexOf(_wordList.Languages, cbLanguage.SelectedItem.ToString());
 
@@ -103,12 +103,32 @@ namespace VocabularyApp
             });
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void DgvList_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var mouseHit = dgvList.HitTest(e.X, e.Y);
+
+                if (mouseHit.RowIndex < 0 || mouseHit.ColumnIndex < 0)
+                {
+                    rowMenu.Items["removeWordToolStripMenuItem"].Enabled = false;
+                }
+                else
+                {
+                    dgvList.Rows[mouseHit.RowIndex].Selected = true;
+                    rowMenu.Items["removeWordToolStripMenuItem"].Enabled = true;
+                }
+
+                rowMenu.Show(dgvList, e.X, e.Y);
+            }
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             AddWord();
         }
 
-        private void addWordToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddWord();
         }
@@ -126,13 +146,13 @@ namespace VocabularyApp
             dgvList.Rows.Add(e.Translations);
             numAddedWords++;
         }
-      
-        private void btnRemove_Click(object sender, EventArgs e)
+
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             RemoveWord();
         }
 
-        private void removeWordToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RemoveWord();
         }
@@ -168,13 +188,13 @@ namespace VocabularyApp
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveChanges();
             Close();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             if (numAddedWords > 0 || numRemovedWords > 0)
             {
@@ -190,28 +210,12 @@ namespace VocabularyApp
 
         private void SaveChanges()
         {
-            MessageBox.Show($"adding {numAddedWords} word(s) and removing {numRemovedWords} word(s)");
+            string msg = numAddedWords > 0 ? $"adding {numAddedWords} word{(numAddedWords > 1 ? "s" : string.Empty)}" : string.Empty;
+            msg += numAddedWords > 0 && numRemovedWords > 0 ? " and " : string.Empty;
+            msg += numRemovedWords > 0 ? $"removing {numRemovedWords} word{(numRemovedWords > 1 ? "s" : string.Empty)}" : string.Empty;
+            MessageBox.Show(msg);
+
             _wordList.Save();
         }
-
-        private void dgvList_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                var mouseHit = dgvList.HitTest(e.X, e.Y);
-
-                if (mouseHit.RowIndex < 0 || mouseHit.ColumnIndex < 0)
-                {
-                    rowMenu.Items["removeWordToolStripMenuItem"].Enabled = false;
-                }
-                else
-                {
-                    dgvList.Rows[mouseHit.RowIndex].Selected = true;
-                    rowMenu.Items["removeWordToolStripMenuItem"].Enabled = true;
-                }
-
-                rowMenu.Show(dgvList, e.X, e.Y);
-            }
-        }   
     }
 }
