@@ -10,16 +10,30 @@ namespace VocabularyApp
             InitializeComponent();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            Add();
+        }
+
+        private void TxtLanguage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                Add();
+            }
+        }
+        private void Add()
         {
             if (!string.IsNullOrWhiteSpace(txtLanguage.Text))
             {
                 lbLanguages.Items.Add(txtLanguage.Text);
                 txtLanguage.Text = string.Empty;
             }
+            
+            txtLanguage.Focus();
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             if (lbLanguages.SelectedIndex >= 0)
             {
@@ -27,7 +41,7 @@ namespace VocabularyApp
             }
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
+        private void BtnCreate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -35,13 +49,13 @@ namespace VocabularyApp
                 {
                     if (lbLanguages.Items.Count >= 2)
                     {
-                        List<string> l = new();
+                        List<string> languages = new();
                         foreach (string language in lbLanguages.Items)
                         {
-                            l.Add(language);
+                            languages.Add(language);
                         }
 
-                        WordList wordList = new(txtName.Text, l.ToArray());
+                        WordList wordList = new(txtName.Text, languages.ToArray());
                         wordList.Save();
 
                         ListCreated?.Invoke(null, new(wordList.Name));
@@ -56,6 +70,6 @@ namespace VocabularyApp
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }       
     }
 }
