@@ -44,7 +44,7 @@
 
             if (file.Exists)
             {
-                using TextReader reader = new StreamReader(file.FullName);
+                using StreamReader reader = new(file.FullName);
 
                 string[] languages;
 
@@ -61,19 +61,23 @@
                 WordList wordList = new(name, languages);
 
                 string? wordRow;
-                while ((wordRow = reader.ReadLine()) != null)
+                while (!reader.EndOfStream)
                 {
-                    if (wordRow.Contains(';'))
+                    wordRow = reader.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(wordRow))
                     {
-                        string[] translations = wordRow
-                            .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                            .Select(x => x.ToLower())
-                            .ToArray();
+                        if (wordRow.Contains(';'))
+                        {
+                            string[] translations = wordRow
+                                .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                                .Select(x => x.ToLower())
+                                .ToArray();
 
-                        if (translations.Length == languages.Length) wordList.Add(translations);
-                        else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{wordRow}\"");
+                            if (translations.Length == languages.Length) wordList.Add(translations);
+                            else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{wordRow}\"");
+                        }
+                        else throw new InvalidDataException("Read error, file is incorrectly formatted");
                     }
-                    else throw new InvalidDataException("Read error, file is incorrectly formatted");
                 }
 
                 return wordList;
@@ -86,7 +90,7 @@
             if (!dataPath.Exists) dataPath.Create();
 
             string fullPath = Path.Combine(dataPath.FullName, $"{Name}.dat");
-            using TextWriter writer = new StreamWriter(fullPath);
+            using StreamWriter writer = new(fullPath);
 
             writer.WriteLine(string.Join(";", Languages));
 
@@ -94,8 +98,6 @@
             {
                 writer.WriteLine(string.Join(";", word.Translations));
             }
-
-            writer.Close();
         }
 
         public void Add(params string[] translations)

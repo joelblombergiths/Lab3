@@ -188,7 +188,7 @@ namespace VocabularyApp
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Close();
         }
     }
 }

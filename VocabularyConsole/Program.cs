@@ -6,13 +6,13 @@ if (args.Length > 0)
 
     switch (function)
     {
-        case "-lists": FunctionLists(args[1..^0]); break;
-        case "-new": FunctionNew(args[1..^0]); break;
-        case "-add": FunctionAdd(args[1..^0]); break;
-        case "-remove": FunctionRemove(args[1..^0]); break;
-        case "-words": FunctionWords(args[1..^0]); break;
-        case "-count": FunctionCount(args[1..^0]); break;
-        case "-practice": FunctionPractice(args[1..^0]); break;
+        case "-lists": FunctionLists(args[1..]); break;
+        case "-new": FunctionNew(args[1..]); break;
+        case "-add": FunctionAdd(args[1..]); break;
+        case "-remove": FunctionRemove(args[1..]); break;
+        case "-words": FunctionWords(args[1..]); break;
+        case "-count": FunctionCount(args[1..]); break;
+        case "-practice": FunctionPractice(args[1..]); break;
         default: PrintArgsHelp(); break;
     }
 }
@@ -42,7 +42,7 @@ void FunctionNew(string[] args)
         if (args.Length >= 3)
         {
             string name = args[0];
-            string[] languages = args[1..^0];
+            string[] languages = args[1..];
 
             WordList wordList = new(name, languages);
             wordList.Save();
@@ -88,9 +88,14 @@ void FunctionAdd(string[] args)
                         break;
                     }
                     else translations.Add(input);
+                    
+                    Console.WriteLine();
                 }
 
-                if (translations.Count == wordList.Languages.Length) wordList.Add(translations.ToArray());
+                if (translations.Count == wordList.Languages.Length)
+                {
+                    wordList.Add(translations.ToArray());
+                }
 
             } while (!done);
 
@@ -117,7 +122,7 @@ void FunctionRemove(string[] args)
             string language = args[1].ToLower();
             int languageId = Array.IndexOf(wordList.Languages, language);
 
-            string[] wordsToRemove = args[2..^0];
+            string[] wordsToRemove = args[2..];
 
             foreach (string word in wordsToRemove)
             {
@@ -234,8 +239,7 @@ void FunctionPractice(string[] args)
 
                 string? input = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(input)) done = true;
-                else
+                if (!string.IsNullOrEmpty(input))
                 {
                     totalWords++;
 
@@ -251,6 +255,7 @@ void FunctionPractice(string[] args)
                         Console.WriteLine($"Incorrect, the word is {answerWord}");
                     }
                 }
+                else done = true;
             } while (!done);
 
             Console.ForegroundColor = ConsoleColor.White;
