@@ -51,12 +51,9 @@
                 string? languageRow = reader.ReadLine();
                 if (languageRow != null && languageRow.Contains(';'))
                 {
-                    languages = languageRow
-                        .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                        .Select(x => x.ToLower())
-                        .ToArray();
+                    languages = languageRow.Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                 }
-                else throw new InvalidDataException("Read error, file is incorrectly formatted");
+                else throw new InvalidWordlListException("Read error, Languages are incorrectly formatted");
 
                 WordList wordList = new(name, languages);
 
@@ -74,9 +71,9 @@
                                 .ToArray();
 
                             if (translations.Length == languages.Length) wordList.Add(translations);
-                            else throw new InvalidDataException($"Read error, inconsistent translation:\n\"{wordRow}\"");
+                            else throw new InvalidWordlListException($"Read error, inconsistent translation:\n\"{wordRow}\"");
                         }
-                        else throw new InvalidDataException("Read error, file is incorrectly formatted");
+                        else throw new InvalidWordlListException("Read error, words are incorrectly formatted");
                     }
                 }
 
@@ -115,7 +112,8 @@
         {
             if (translation >= 0 && translation < Languages.Length)
             {
-                Word? findWord = words.Find(w => w.Translations[translation].Equals(word.ToLower()));
+                Word? findWord = words.Find(w => w.Translations[translation] == word.ToLower());
+                
                 if (findWord != null)
                 {
                     words.Remove(findWord);
@@ -131,7 +129,7 @@
         {
             if (sortByTranslation >= 0 && sortByTranslation < Languages.Length)
             {
-                var sorted = words.OrderBy(x => x.Translations[sortByTranslation]);
+                var sorted = words.OrderBy(word => word.Translations[sortByTranslation]);
 
                 foreach (Word word in sorted)
                 {
@@ -148,19 +146,21 @@
                 if (words.Count > 0)
                 {
                     int fromLanguage = Random.Shared.Next(Languages.Length);
-                    int toLanguage;
-                    do
+                    int toLanguage = Random.Shared.Next(Languages.Length);
+                    
+                    while (fromLanguage == toLanguage)
                     {
-                        toLanguage = Random.Shared.Next(Languages.Length);
-                    } while (fromLanguage == toLanguage);
+                        toLanguage++;
+                        if (toLanguage >= Languages.Length) toLanguage = 0;
+                    } 
 
                     Word randomWord = words.ElementAt(Random.Shared.Next(words.Count));
 
                     return new(fromLanguage, toLanguage, randomWord.Translations);
                 }
-                else throw new Exception($"{Name} does not contain any words");
+                else throw new Exception($"List {Name} does not contain any words");
             }
-            else throw new Exception($"{Name} does not contain enough languages");
+            else throw new Exception($"List {Name} does not contain enough languages");
         }
     }
 }
