@@ -50,7 +50,7 @@ void FunctionLists(string[] args)
     }
 
     Console.WriteLine("Available lists:");
-    Console.WriteLine(string.Join("\n", lists));    
+    Console.WriteLine(string.Join("\n", lists));
 }
 
 void FunctionNew(string[] args)
@@ -64,6 +64,17 @@ void FunctionNew(string[] args)
         }
 
         string name = args[0];
+
+        if (WordList.GetLists().Contains(name))
+        {
+            Console.WriteLine($"List {name} already exists. Overwrite? [yes/NO]");
+            string? input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input)) input = "no";
+
+            if (input.ToLower().StartsWith("n")) return;
+        }
+
         string[] languages = args[1..];
 
         WordList wordList = new(name, languages);
@@ -113,7 +124,7 @@ void FunctionAdd(string[] args)
                     addCount--;
                     break;
                 }
-                
+
                 translations.Add(input);
             }
 
@@ -127,8 +138,8 @@ void FunctionAdd(string[] args)
 
         } while (!done);
 
-        if (addCount <= 0) 
-        { 
+        if (addCount <= 0)
+        {
             Console.WriteLine("No words added.");
             return;
         }
@@ -207,7 +218,7 @@ void FunctionWords(string[] args)
             string language = args[1].ToLower();
             sort = Array.IndexOf(wordList.Languages, language);
         }
-        
+
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine(string.Join("\t", wordList.Languages));
 
@@ -229,7 +240,7 @@ void FunctionCount(string[] args)
             Console.WriteLine("Usage:\n-count <listname>");
             return;
         }
- 
+
         string name = args[0];
         WordList wordList = WordList.LoadList(name);
 
@@ -238,7 +249,7 @@ void FunctionCount(string[] args)
             Console.WriteLine($"No words in list {name}.");
             return;
         }
-        
+
         Console.WriteLine($"{wordList.Count} {(wordList.Count > 1 ? "words" : "word")} in the list {name}.");
     }
     catch (Exception ex)
@@ -298,17 +309,17 @@ void FunctionPractice(string[] args)
 
             totalWords++;
 
-            if (input.ToLower() == answerWord)
-            {
-                correctWords++;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("That's correct!");
-            }
-            else
+            if (input.ToLower() != answerWord)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Incorrect, the word is {answerWord}");
+                continue;
             }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("That's correct!");
+            correctWords++;
+
         } while (true);
 
         Console.ForegroundColor = ConsoleColor.White;

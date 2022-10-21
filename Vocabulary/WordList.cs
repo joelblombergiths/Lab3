@@ -2,7 +2,7 @@
 {
     public class WordList
     {
-        private const char delimiterChar = ';';
+        private const char separatorChar = ';';
 
         private static readonly DirectoryInfo dataPath = new(Path
             .Combine(Environment
@@ -52,10 +52,10 @@
             string[] languages;
             string? languageRow = reader.ReadLine();
 
-            if (languageRow == null || !languageRow.Contains(delimiterChar))
+            if (languageRow == null || !languageRow.Contains(separatorChar))
                 throw new InvalidWordlListException("Read error, Languages are incorrectly formatted");
 
-            languages = languageRow.Split(delimiterChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            languages = languageRow.Split(separatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             WordList wordList = new(name, languages);
 
@@ -66,11 +66,11 @@
 
                 if (string.IsNullOrWhiteSpace(wordRow)) continue;
 
-                if (!wordRow.Contains(delimiterChar))
+                if (!wordRow.Contains(separatorChar))
                     throw new InvalidWordlListException("Read error, words are incorrectly formatted");
                     
                 string[] translations = wordRow
-                    .Split(delimiterChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                    .Split(separatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.ToLower())
                     .ToArray();
 
@@ -90,11 +90,11 @@
             string fullPath = Path.Combine(dataPath.FullName, $"{Name}.dat");
             using StreamWriter writer = new(fullPath);
 
-            writer.WriteLine(string.Join(delimiterChar, Languages));
+            writer.WriteLine(string.Join(separatorChar, Languages));
 
             foreach (Word word in words)
             {
-                writer.WriteLine(string.Join(delimiterChar, word.Translations));
+                writer.WriteLine(string.Join(separatorChar, word.Translations));
             }
         }
 
@@ -115,11 +115,8 @@
             
             Word? findWord = words.Find(w => w.Translations[translation] == word.ToLower());
 
-            if (findWord != null)
-            {
-                return words.Remove(findWord);
-            }
-
+            if (findWord != null) return words.Remove(findWord);
+            
             return false;
         }
 
