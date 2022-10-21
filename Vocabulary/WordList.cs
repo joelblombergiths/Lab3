@@ -2,6 +2,8 @@
 {
     public class WordList
     {
+        private const char delimiterChar = ';';
+
         private static readonly DirectoryInfo dataPath = new(Path
             .Combine(Environment
             .GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Vocabulary"));
@@ -17,7 +19,7 @@
             Name = name.ToLower();
 
             Languages = languages
-                .Select(x => x.ToLower())
+                .Select(language => language.ToLower())
                 .ToArray();
         }
 
@@ -42,44 +44,43 @@
 
             FileInfo file = new(Path.Combine(dataPath.FullName, $"{name}.dat"));
 
-            if (file.Exists)
+            if (!file.Exists)
+                throw new ArgumentException($"No list with name \"{name}\" found", nameof(name));
+
+            using StreamReader reader = new(file.FullName);
+
+            string[] languages;
+            string? languageRow = reader.ReadLine();
+
+            if (languageRow == null || !languageRow.Contains(delimiterChar))
+                throw new InvalidWordlListException("Read error, Languages are incorrectly formatted");
+
+            languages = languageRow.Split(delimiterChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+            WordList wordList = new(name, languages);
+
+            string? wordRow;
+            while (!reader.EndOfStream)
             {
-                using StreamReader reader = new(file.FullName);
+                wordRow = reader.ReadLine();
 
-                string[] languages;
+                if (string.IsNullOrWhiteSpace(wordRow)) continue;
 
-                string? languageRow = reader.ReadLine();
-                if (languageRow != null && languageRow.Contains(';'))
-                {
-                    languages = languageRow.Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                }
-                else throw new InvalidWordlListException("Read error, Languages are incorrectly formatted");
+                if (!wordRow.Contains(delimiterChar))
+                    throw new InvalidWordlListException("Read error, words are incorrectly formatted");
+                    
+                string[] translations = wordRow
+                    .Split(delimiterChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.ToLower())
+                    .ToArray();
 
-                WordList wordList = new(name, languages);
-
-                string? wordRow;
-                while (!reader.EndOfStream)
-                {
-                    wordRow = reader.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(wordRow))
-                    {
-                        if (wordRow.Contains(';'))
-                        {
-                            string[] translations = wordRow
-                                .Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                                .Select(x => x.ToLower())
-                                .ToArray();
-
-                            if (translations.Length == languages.Length) wordList.Add(translations);
-                            else throw new InvalidWordlListException($"Read error, inconsistent translation:\n\"{wordRow}\"");
-                        }
-                        else throw new InvalidWordlListException("Read error, words are incorrectly formatted");
-                    }
-                }
-
-                return wordList;
+                if (translations.Length != languages.Length)
+                    throw new InvalidWordlListException($"Read error, inconsistent translation:\n\"{wordRow}\"");
+                    
+                wordList.Add(translations);
             }
-            else throw new ArgumentException($"No list with name \"{name}\" found", nameof(name));
+
+            return wordList;
         }
 
         public void Save()
@@ -89,78 +90,72 @@
             string fullPath = Path.Combine(dataPath.FullName, $"{Name}.dat");
             using StreamWriter writer = new(fullPath);
 
-            writer.WriteLine(string.Join(";", Languages));
+            writer.WriteLine(string.Join(delimiterChar, Languages));
 
             foreach (Word word in words)
             {
-                writer.WriteLine(string.Join(";", word.Translations));
+                writer.WriteLine(string.Join(delimiterChar, word.Translations));
             }
         }
 
         public void Add(params string[] translations)
         {
-            if (translations.Length == Languages.Length)
-            {
-                words.Add(new(translations
-                    .Select(x => x.ToLower())
-                    .ToArray()));
-            }
-            else throw new ArgumentException($"Wrong number of translations, this WordList has {Languages.Length} languages");
+            if (translations.Length != Languages.Length)
+                throw new ArgumentException($"Wrong number of translations, this WordList has {Languages.Length} languages");
+           
+            words.Add(new(translations
+                .Select(translation => translation.ToLower())
+                .ToArray()));           
         }
 
         public bool Remove(int translation, string word)
         {
-            if (translation >= 0 && translation < Languages.Length)
+            if (translation < 0 || translation >= Languages.Length)
+                throw new ArgumentOutOfRangeException(nameof(translation), translation, "Language does not exists");
+            
+            Word? findWord = words.Find(w => w.Translations[translation] == word.ToLower());
+
+            if (findWord != null)
             {
-                Word? findWord = words.Find(w => w.Translations[translation] == word.ToLower());
-                
-                if (findWord != null)
-                {
-                    words.Remove(findWord);
-                    return true;
-                }
+                return words.Remove(findWord);
             }
-            else throw new ArgumentOutOfRangeException(nameof(translation), translation, "Language does not exists");
 
             return false;
         }
 
         public void List(int sortByTranslation, Action<string[]> showTranslation)
         {
-            if (sortByTranslation >= 0 && sortByTranslation < Languages.Length)
-            {
-                var sorted = words.OrderBy(word => word.Translations[sortByTranslation]);
+            if (sortByTranslation < 0 || sortByTranslation >= Languages.Length)
+                throw new ArgumentOutOfRangeException(nameof(sortByTranslation), sortByTranslation, "Language does not exists");
+            
+            var sorted = words.OrderBy(word => word.Translations[sortByTranslation]);
 
-                foreach (Word word in sorted)
-                {
-                    showTranslation(word.Translations);
-                }
+            foreach (Word word in sorted)
+            {
+                showTranslation(word.Translations);
             }
-            else throw new ArgumentOutOfRangeException(nameof(sortByTranslation), sortByTranslation, "Language does not exists");
         }
 
         public Word GetWordToPractice()
         {
-            if (Languages.Length > 1)
+            if (Languages.Length <= 1)
+                throw new Exception($"List {Name} does not contain enough languages");
+            
+            if (words.Count <= 0)
+                throw new Exception($"List {Name} does not contain any words");
+                
+            int fromLanguage = Random.Shared.Next(Languages.Length);
+            int toLanguage = Random.Shared.Next(Languages.Length);
+
+            while (fromLanguage == toLanguage)
             {
-                if (words.Count > 0)
-                {
-                    int fromLanguage = Random.Shared.Next(Languages.Length);
-                    int toLanguage = Random.Shared.Next(Languages.Length);
-                    
-                    while (fromLanguage == toLanguage)
-                    {
-                        toLanguage++;
-                        if (toLanguage >= Languages.Length) toLanguage = 0;
-                    } 
-
-                    Word randomWord = words.ElementAt(Random.Shared.Next(words.Count));
-
-                    return new(fromLanguage, toLanguage, randomWord.Translations);
-                }
-                else throw new Exception($"List {Name} does not contain any words");
+                toLanguage++;
+                if (toLanguage >= Languages.Length) toLanguage = 0;
             }
-            else throw new Exception($"List {Name} does not contain enough languages");
+
+            Word randomWord = words.ElementAt(Random.Shared.Next(words.Count));
+
+            return new(fromLanguage, toLanguage, randomWord.Translations);            
         }
     }
 }
