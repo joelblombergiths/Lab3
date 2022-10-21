@@ -6,13 +6,13 @@ if (args.Length > 0)
 
     switch (function)
     {
-        case "-lists": FunctionLists(args[1..]); break;
-        case "-new": FunctionNew(args[1..]); break;
-        case "-add": FunctionAdd(args[1..]); break;
-        case "-remove": FunctionRemove(args[1..]); break;
-        case "-words": FunctionWords(args[1..]); break;
-        case "-count": FunctionCount(args[1..]); break;
-        case "-practice": FunctionPractice(args[1..]); break;
+        case "-lists": Lists(args[1..]); break;
+        case "-new": New(args[1..]); break;
+        case "-add": Add(args[1..]); break;
+        case "-remove": Remove(args[1..]); break;
+        case "-words": Words(args[1..]); break;
+        case "-count": Count(args[1..]); break;
+        case "-practice": Practice(args[1..]); break;
         default: PrintArgsHelp(); break;
     }
 }
@@ -34,7 +34,7 @@ static void PrintArgsHelp()
     Console.WriteLine("-practice <listname>");
 }
 
-void FunctionLists(string[] args)
+void Lists(string[] args)
 {
     if (args.Length != 0)
     {
@@ -53,7 +53,7 @@ void FunctionLists(string[] args)
     Console.WriteLine(string.Join("\n", lists));
 }
 
-void FunctionNew(string[] args)
+void New(string[] args)
 {
     try
     {
@@ -80,7 +80,7 @@ void FunctionNew(string[] args)
         WordList wordList = new(name, languages);
         wordList.Save();
 
-        FunctionAdd(new string[] { name });
+        Add(new string[] { name });
     }
     catch (Exception ex)
     {
@@ -88,7 +88,7 @@ void FunctionNew(string[] args)
     }
 }
 
-void FunctionAdd(string[] args)
+void Add(string[] args)
 {
     try
     {
@@ -153,7 +153,7 @@ void FunctionAdd(string[] args)
     }
 }
 
-void FunctionRemove(string[] args)
+void Remove(string[] args)
 {
     try
     {
@@ -192,7 +192,7 @@ void FunctionRemove(string[] args)
     }
 }
 
-void FunctionWords(string[] args)
+void Words(string[] args)
 {
     try
     {
@@ -231,7 +231,7 @@ void FunctionWords(string[] args)
     }
 }
 
-void FunctionCount(string[] args)
+void Count(string[] args)
 {
     try
     {
@@ -258,7 +258,7 @@ void FunctionCount(string[] args)
     }
 }
 
-void FunctionPractice(string[] args)
+void Practice(string[] args)
 {
     try
     {
