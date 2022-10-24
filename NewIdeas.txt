@@ -2,12 +2,12 @@ idé 1:
 	Practice gui har 3 radiobuttons med förslag, ett rätt och 2 som slumpas av befintliga ord
 	t.ex som börjar på samma bokstav och eller har samma antal bokstäver,
 	alternativt visar ett påstående där man slumpar ifall det är rätt eller fel
-Tidsåtgång: 4 arbetstimmar
+Tidsåtgång: 8 arbetstimmar
 
 idé 2: 
 	Ord kan ha flera betydelser, utöka funktionaliteten av Word att hålla flera översättningar för varje språk.
 	t.ex practice med engelska ordet "drop" ger rätt på båda svenska orden "tappa" och "droppe".
-Tidsåtgång: 8 arbetstimmar
+Tidsåtgång: 16 arbetstimmar
 
 idé 3:
 	Användande av en databas istället, fördelen kan vara t.ex att en klass av elever kan lära sig samma ord,
