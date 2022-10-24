@@ -47,7 +47,8 @@
             this.lbLanguages.Location = new System.Drawing.Point(6, 22);
             this.lbLanguages.Name = "lbLanguages";
             this.lbLanguages.Size = new System.Drawing.Size(120, 124);
-            this.lbLanguages.TabIndex = 10;
+            this.lbLanguages.TabIndex = 0;
+            this.lbLanguages.TabStop = false;
             // 
             // groupBox1
             // 
@@ -64,7 +65,7 @@
             this.txtName.Location = new System.Drawing.Point(6, 22);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(243, 23);
-            this.txtName.TabIndex = 0;
+            this.txtName.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -84,7 +85,7 @@
             this.btnRemove.Location = new System.Drawing.Point(132, 123);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(117, 23);
-            this.btnRemove.TabIndex = 3;
+            this.btnRemove.TabIndex = 5;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
@@ -94,7 +95,7 @@
             this.txtLanguage.Location = new System.Drawing.Point(132, 22);
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.Size = new System.Drawing.Size(117, 23);
-            this.txtLanguage.TabIndex = 1;
+            this.txtLanguage.TabIndex = 2;
             this.txtLanguage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtLanguage_KeyDown);
             // 
             // btnAdd
@@ -102,7 +103,7 @@
             this.btnAdd.Location = new System.Drawing.Point(132, 51);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(117, 23);
-            this.btnAdd.TabIndex = 1;
+            this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
@@ -112,7 +113,7 @@
             this.btnCreate.Location = new System.Drawing.Point(12, 242);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(255, 23);
-            this.btnCreate.TabIndex = 3;
+            this.btnCreate.TabIndex = 4;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
