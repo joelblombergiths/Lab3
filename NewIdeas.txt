@@ -1,5 +1,5 @@
 idé 1:
-	Practice gui har 3 radiobuttons med förslag, ett rätt och 2 som slumpas av befintliga ord
+	Practice gui har 3 radiobuttons med förslag, ett rätt och två som slumpas av befintliga ord
 	t.ex som börjar på samma bokstav och eller har samma antal bokstäver,
 	alternativt visar ett påstående där man slumpar ifall det är rätt eller fel
 Tidsåtgång: 8 arbetstimmar
