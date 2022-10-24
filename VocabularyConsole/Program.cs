@@ -225,13 +225,11 @@ void Count(string[] args)
         string name = args[0];
         WordList wordList = WordList.LoadList(name);
 
-        if (wordList.Count <= 0)
-        {
-            Console.WriteLine($"No words in list {name}.");
-            return;
-        }
+        string result = wordList.Count > 0
+            ? $"{wordList.Count} word{(wordList.Count > 1 ? "s" : string.Empty)} in the list {name}."
+            : $"No words in list {name}.";
 
-        Console.WriteLine($"{wordList.Count} word{(wordList.Count > 1 ? "s" : string.Empty)} in the list {name}.");
+        Console.WriteLine(result);
     }
     catch (Exception ex)
     {
@@ -258,24 +256,12 @@ void Practice(string[] args)
         {
             Word practiceWord = wordList.GetWordToPractice();
             
-            PrintPracticeChallenge(practiceWord, wordList);
+            PrintPractice(practiceWord, wordList);
 
             string? input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) break;
 
-            practiceResult.CurrentWord = practiceWord.Translations[practiceWord.ToLanguage];
-            bool correctGuess = practiceResult.GuessWord(input);
-            
-            Console.ForegroundColor = correctGuess 
-                ? ConsoleColor.Green 
-                : ConsoleColor.Red;
-
-            string result = correctGuess
-                ? "That's correct!"
-                : $"Incorrect, the word is {practiceResult.CurrentWord}";
-            
-            Console.WriteLine(result);
-           
+            PrintResult(practiceResult, practiceWord, input);
         } while (true);
 
         Console.ForegroundColor = ConsoleColor.White;
@@ -290,7 +276,8 @@ void Practice(string[] args)
     }
 }
 
-void PrintPracticeChallenge(Word practiceWord, WordList wordList)
+
+void PrintPractice(Word practiceWord, WordList wordList)
 {   
     string guessLang = wordList.Languages[practiceWord.FromLanguage];
     string guessWord = practiceWord.Translations[practiceWord.FromLanguage];
@@ -311,4 +298,20 @@ void PrintPracticeChallenge(Word practiceWord, WordList wordList)
     Console.Write(answerLang);
     Console.ForegroundColor = ConsoleColor.Gray;
     Console.Write(": ");
+}
+
+void PrintResult(PracticeResult practiceResult, Word word, string guess)
+{
+    practiceResult.CurrentWord = word.Translations[word.ToLanguage];
+    bool correctGuess = practiceResult.GuessWord(guess);
+
+    Console.ForegroundColor = correctGuess
+        ? ConsoleColor.Green
+        : ConsoleColor.Red;
+
+    string result = correctGuess
+        ? "That's correct!"
+        : $"Incorrect, the word is \"{practiceResult.CurrentWord}\"";
+
+    Console.WriteLine(result);
 }

@@ -49,7 +49,7 @@
             string? languageRow = reader.ReadLine();
 
             if (languageRow == null || !languageRow.Contains(SeparatorChar))
-                throw new InvalidWordlListException("Read error, Languages are incorrectly formatted");
+                throw new FileLoadException("Read error, Languages are incorrectly formatted");
 
             string[] languages = languageRow.Split(SeparatorChar,
                 StringSplitOptions.TrimEntries
@@ -64,7 +64,7 @@
                 if (string.IsNullOrWhiteSpace(wordRow)) continue;
 
                 if (!wordRow.Contains(SeparatorChar))
-                    throw new InvalidWordlListException("Read error, words are incorrectly formatted");
+                    throw new FileLoadException("Read error, words are incorrectly formatted");
 
                 string[] translations = wordRow
                     .Split(SeparatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
@@ -72,7 +72,7 @@
                     .ToArray();
 
                 if (translations.Length != languages.Length)
-                    throw new InvalidWordlListException($"Read error, inconsistent translation:\n\"{wordRow}\"");
+                    throw new FileLoadException($"Read error, inconsistent translation:\n\"{wordRow}\"");
 
                 wordList.Add(translations);
             }
