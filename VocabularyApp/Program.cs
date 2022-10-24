@@ -1,3 +1,5 @@
+using VocabularyApp.Forms;
+
 namespace VocabularyApp
 {
     internal static class Program

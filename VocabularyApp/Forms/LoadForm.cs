@@ -1,6 +1,7 @@
 ﻿using Vocabulary;
+using VocabularyApp.Events;
 
-namespace VocabularyApp
+namespace VocabularyApp.Forms
 {
     public partial class LoadForm : Form
     {

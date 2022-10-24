@@ -1,4 +1,4 @@
-﻿namespace VocabularyApp
+﻿namespace VocabularyApp.Forms
 {
     partial class LoadForm
     {

@@ -1,16 +1,17 @@
 ﻿using System.Text;
 using Vocabulary;
+using VocabularyApp.Events;
 
-namespace VocabularyApp
+namespace VocabularyApp.Forms
 {
     public partial class ViewForm : Form
     {
         private readonly WordList _wordList;
 
-        private bool wordsLoading;
+        private readonly List<string[]> addedWords = new();
+        private readonly List<string[]> removedWords = new();
 
-        private List<string[]> addedWords = new();
-        private List<string[]> removedWords = new();
+        private bool wordsLoading;
 
         public ViewForm(WordList wordList)
         {
@@ -112,17 +113,15 @@ namespace VocabularyApp
             {
                 var mouseHit = dgvList.HitTest(e.X, e.Y);
 
-                if (mouseHit.RowIndex < 0 || mouseHit.ColumnIndex < 0)
-                {
-                    rowMenu.Items["removeWordToolStripMenuItem"].Enabled = false;
-                }
-                else
+                rowMenu.Items["removeWordToolStripMenuItem"].Enabled = false;
+
+                if (mouseHit.RowIndex >= 0)
                 {
                     dgvList.Rows[mouseHit.RowIndex].Selected = true;
                     rowMenu.Items["removeWordToolStripMenuItem"].Enabled = true;
                 }
 
-                rowMenu.Show(dgvList, e.X, e.Y);
+                rowMenu.Show(dgvList, e.Location);
             }
         }
 
@@ -145,12 +144,10 @@ namespace VocabularyApp
 
         private void OnWordAdded(object? sender, WordEvent e)
         {
+            if (ModifiedThisSession(e.Translations, removedWords, out int index)) removedWords.RemoveAt(index);
+            else addedWords.Add(e.Translations);
+
             dgvList.Rows.Add(e.Translations);
-
-            int removedIndex = removedWords.FindIndex(a => a.SequenceEqual(e.Translations));
-
-            if (removedIndex < 0) addedWords.Add(e.Translations);            
-            else removedWords.RemoveAt(removedIndex);
         }
 
         private void BtnRemove_Click(object sender, EventArgs e)
@@ -178,25 +175,18 @@ namespace VocabularyApp
                     {
                         DataGridViewRow selectedRow = dgvList.SelectedRows[0];
 
-                        string? word = selectedRow.Cells[0].Value.ToString();
-                        if (word != null)
+                        List<string> cellValues = new();
+                        foreach (DataGridViewCell cell in selectedRow.Cells)
                         {
-                            dgvList.Rows.Remove(selectedRow);
-
-                            List<string> rowValues = new();
-
-                            foreach(DataGridViewCell cell in selectedRow.Cells)
-                            {
-                                rowValues.Add(cell.Value.ToString().ToLower());
-                            }
-
-                            string[] translations = rowValues.ToArray();
-
-                            int addedIndex = addedWords.FindIndex(a => a.SequenceEqual(translations));
-
-                            if (addedIndex < 0) removedWords.Add(translations);
-                            else addedWords.RemoveAt(addedIndex);
+                            cellValues.Add(cell.Value.ToString().ToLower());
                         }
+
+                        string[] translations = cellValues.ToArray();
+
+                        if (ModifiedThisSession(translations, addedWords, out int index)) addedWords.RemoveAt(index);
+                        else removedWords.Add(translations);
+
+                        dgvList.Rows.Remove(selectedRow);
                     }
                 }
             }
@@ -206,10 +196,15 @@ namespace VocabularyApp
             }
         }
 
+        private bool ModifiedThisSession(string[] translations, List<string[]> list, out int index)
+        {
+            index = list.FindIndex(t => t.SequenceEqual(translations));
+            return index >= 0;
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveChanges();
-            Close();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -228,26 +223,36 @@ namespace VocabularyApp
 
         private void SaveChanges()
         {
-            StringBuilder sb = new();
+            try
+            {
+                StringBuilder sb = new();
 
-            sb.Append(addedWords.Count > 0 
-                ? $"adding {addedWords.Count} word{(addedWords.Count > 1 ? "s" : string.Empty)}" 
-                : string.Empty);
+                sb.Append(addedWords.Count > 0
+                    ? $"adding {addedWords.Count} word{(addedWords.Count > 1 ? "s" : string.Empty)}"
+                    : string.Empty);
 
-            sb.Append(addedWords.Count > 0 && removedWords.Count > 0
-                ? " and " 
-                : string.Empty);
+                sb.Append(addedWords.Count > 0 && removedWords.Count > 0
+                    ? " and "
+                    : string.Empty);
 
-            sb.Append(removedWords.Count > 0
-                ? $"removing {removedWords.Count} word{(removedWords.Count > 1 ? "s" : string.Empty)}" 
-                : string.Empty);
-            
-            if(sb.Length > 0) MessageBox.Show(sb.ToString());
+                sb.Append(removedWords.Count > 0
+                    ? $"removing {removedWords.Count} word{(removedWords.Count > 1 ? "s" : string.Empty)}"
+                    : string.Empty);
 
-            removedWords.ForEach(translation => _wordList.Remove(0, translation[0]));
-            addedWords.ForEach(translation => _wordList.Add(translation));
+                if (sb.Length > 0) MessageBox.Show(sb.ToString());
 
-            if(removedWords.Count > 0 || addedWords.Count > 0) _wordList.Save();
+                removedWords.ForEach(translation => _wordList.Remove(0, translation[0]));
+                addedWords.ForEach(translation => _wordList.Add(translation));
+
+                if (removedWords.Count > 0 || addedWords.Count > 0) _wordList.Save();
+
+                removedWords.Clear();
+                addedWords.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

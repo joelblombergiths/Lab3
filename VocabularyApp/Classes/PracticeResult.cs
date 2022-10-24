@@ -1,4 +1,4 @@
-﻿namespace VocabularyApp
+﻿namespace VocabularyApp.Classes
 {
     internal class PracticeResult
     {
@@ -9,21 +9,19 @@
 		private string _currentWord = string.Empty;
 		public string CurrentWord
 		{
-			get { return _currentWord; }
-			set { _currentWord = value.ToLower(); }
-		}
+			get => _currentWord;
+            set => _currentWord = value.ToLower();
+        }
 
 		public bool GuessWord(string word)
 		{
 			Total++;
 
-			if(word.ToLower() == CurrentWord)
-			{
-				Correct++;
-				return true;
-			}
-			return false;
-		}
+            if (word.ToLower() != CurrentWord) return false;
+            
+            Correct++;
+            return true;
+        }
 
 		public PracticeResult()
 		{

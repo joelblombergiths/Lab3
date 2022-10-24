@@ -22,7 +22,7 @@ Console.WriteLine();
 
 //--- Functions
 
-static void PrintArgsHelp()
+void PrintArgsHelp()
 {
     Console.WriteLine("Application supports the following arguments:");
     Console.WriteLine("-lists");
@@ -36,38 +36,37 @@ static void PrintArgsHelp()
 
 void Lists(string[] args)
 {
-    if (args.Length != 0)
+    try
     {
-        Console.WriteLine("Usage:\n-lists");
-        return;
-    }
+        if (args.Length != 0) throw new ArgumentException("Usage:\n-lists");
 
-    string[] lists = WordList.GetLists();
-    if (lists.Length == 0)
+        string[] lists = WordList.GetLists();
+        if (lists.Length == 0)
+        {
+            Console.WriteLine("No available lists.");
+            return;
+        }
+
+        Console.WriteLine("Available lists:");
+        Console.WriteLine(string.Join("\n", lists));
+    }
+    catch(Exception ex)
     {
-        Console.WriteLine("No available lists.");
-        return;
+        Console.WriteLine(ex.Message);
     }
-
-    Console.WriteLine("Available lists:");
-    Console.WriteLine(string.Join("\n", lists));
 }
 
 void New(string[] args)
 {
     try
     {
-        if (args.Length < 3)
-        {
-            Console.WriteLine("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}");
-            return;
-        }
+        if (args.Length < 3) throw new ArgumentException("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}");
 
         string name = args[0];
 
         if (WordList.GetLists().Contains(name))
         {
-            Console.WriteLine($"List {name} already exists. Overwrite? [yes/NO]");
+            Console.Write($"List \"{name}\" already exists. Overwrite? [yes/NO]: ");
             string? input = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(input)) input = "no";
@@ -80,7 +79,7 @@ void New(string[] args)
         WordList wordList = new(name, languages);
         wordList.Save();
 
-        Add(new string[] { name });
+        Add(new[] { name });
     }
     catch (Exception ex)
     {
@@ -92,18 +91,13 @@ void Add(string[] args)
 {
     try
     {
-        if (args.Length != 1)
-        {
-            Console.WriteLine("Usage:\n-add <listname>");
-            return;
-        }
+        if (args.Length != 1) throw new ArgumentException("Usage:\n-add <listname>");
 
         string name = args[0];
 
         WordList wordList = WordList.LoadList(name);
 
         bool done = false;
-
         int addCount = 1;
         do
         {
@@ -157,11 +151,7 @@ void Remove(string[] args)
 {
     try
     {
-        if (args.Length < 3)
-        {
-            Console.WriteLine("Usage:\n-remove <listname> <language> <word 1>..{word n}");
-            return;
-        }
+        if (args.Length < 3) throw new ArgumentException("Usage:\n-remove <listname> <language> <word 1>..{word n}");
 
         string name = args[0];
 
@@ -170,18 +160,15 @@ void Remove(string[] args)
         string language = args[1].ToLower();
         int languageId = Array.IndexOf(wordList.Languages, language);
 
+        if (languageId < 0) throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
+
         string[] wordsToRemove = args[2..];
 
         foreach (string word in wordsToRemove)
         {
-            if (wordList.Remove(languageId, word))
-            {
-                Console.WriteLine($"Word \"{word}\" deleted succeeccfully.");
-            }
-            else
-            {
-                Console.WriteLine($"Word \"{word}\" did not exist for language {language}.");
-            }
+            Console.WriteLine(wordList.Remove(languageId, word)
+                ? $"Word \"{word}\" deleted successfully."
+                : $"Word \"{word}\" did not exist for language {language}.");
         }
 
         wordList.Save();
@@ -196,11 +183,7 @@ void Words(string[] args)
 {
     try
     {
-        if (args.Length != 1 && args.Length != 2)
-        {
-            Console.WriteLine("Usage:\n-words <listname> {sortByLanguage}");
-            return;
-        }
+        if (args.Length != 1 && args.Length != 2) throw new ArgumentException("Usage:\n-words <listname> {sortByLanguage}");
 
         string name = args[0];
 
@@ -217,6 +200,8 @@ void Words(string[] args)
         {
             string language = args[1].ToLower();
             sort = Array.IndexOf(wordList.Languages, language);
+
+            if (sort < 0) throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
         }
 
         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -235,11 +220,7 @@ void Count(string[] args)
 {
     try
     {
-        if (args.Length != 1)
-        {
-            Console.WriteLine("Usage:\n-count <listname>");
-            return;
-        }
+        if (args.Length != 1) throw new ArgumentException("Usage:\n-count <listname>");
 
         string name = args[0];
         WordList wordList = WordList.LoadList(name);
@@ -250,7 +231,7 @@ void Count(string[] args)
             return;
         }
 
-        Console.WriteLine($"{wordList.Count} {(wordList.Count > 1 ? "words" : "word")} in the list {name}.");
+        Console.WriteLine($"{wordList.Count} word{(wordList.Count > 1 ? "s" : string.Empty)} in the list {name}.");
     }
     catch (Exception ex)
     {
@@ -262,11 +243,7 @@ void Practice(string[] args)
 {
     try
     {
-        if (args.Length != 1)
-        {
-            Console.WriteLine("Usage:\n-practice <listname>");
-            return;
-        }
+        if (args.Length != 1) throw new ArgumentException("Usage:\n-practice <listname>");
 
         string name = args[0];
         WordList wordList = WordList.LoadList(name);
@@ -281,34 +258,14 @@ void Practice(string[] args)
         do
         {
             Word practiceWord = wordList.GetWordToPractice();
-
-            string guessLang = wordList.Languages[practiceWord.FromLanguage];
-            string guessWord = practiceWord.Translations[practiceWord.FromLanguage];
-
-            string answerLang = wordList.Languages[practiceWord.ToLanguage];
-            string answerWord = practiceWord.Translations[practiceWord.ToLanguage];
-
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write($"Translate the ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(guessLang);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write($" word ");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write(guessWord);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write(" into ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(answerLang);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write(": ");
+            PrintPracticeChallenge(practiceWord, wordList);
 
             string? input = Console.ReadLine();
-
             if (string.IsNullOrWhiteSpace(input)) break;
 
             totalWords++;
 
+            string answerWord = practiceWord.Translations[practiceWord.ToLanguage];
             if (input.ToLower() != answerWord)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -324,7 +281,7 @@ void Practice(string[] args)
 
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine();
-        Console.WriteLine($"Given the {totalWords} words you tried,");
+        Console.WriteLine($"Given the {totalWords} word{(totalWords > 1 ? "s" : string.Empty)} you tried,");
         Console.WriteLine($"you answered {correctWords} correctly,");
         Console.WriteLine($"that's a success rate of {(float)correctWords / totalWords * 100:f0}%.");
     }
@@ -332,4 +289,27 @@ void Practice(string[] args)
     {
         Console.WriteLine(ex.Message);
     }
+}
+
+void PrintPracticeChallenge(Word practiceWord, WordList wordList)
+{   
+    string guessLang = wordList.Languages[practiceWord.FromLanguage];
+    string guessWord = practiceWord.Translations[practiceWord.FromLanguage];
+
+    string answerLang = wordList.Languages[practiceWord.ToLanguage];    
+
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write("Translate the ");
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    Console.Write(guessLang);
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write(" word ");
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.Write(guessWord);
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write(" into ");
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    Console.Write(answerLang);
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write(": ");
 }

@@ -1,4 +1,4 @@
-﻿namespace VocabularyApp
+﻿namespace VocabularyApp.Forms
 {
     partial class AddForm
     {
@@ -47,7 +47,7 @@
             this.btnDone.TabIndex = 1;
             this.btnDone.Text = "Done";
             this.btnDone.UseVisualStyleBackColor = true;
-            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            this.btnDone.Click += new System.EventHandler(this.BtnDone_Click);
             // 
             // btnCancel
             // 
@@ -57,7 +57,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // lbLanguages
             // 
@@ -68,7 +68,7 @@
             this.lbLanguages.Name = "lbLanguages";
             this.lbLanguages.Size = new System.Drawing.Size(119, 147);
             this.lbLanguages.TabIndex = 2;
-            this.lbLanguages.SelectedIndexChanged += new System.EventHandler(this.lbLanguages_SelectedIndexChanged);
+            this.lbLanguages.SelectedIndexChanged += new System.EventHandler(this.LbLanguages_SelectedIndexChanged);
             // 
             // gbLang
             // 
@@ -85,8 +85,8 @@
             this.txtTranslation.Name = "txtTranslation";
             this.txtTranslation.Size = new System.Drawing.Size(188, 23);
             this.txtTranslation.TabIndex = 0;
-            this.txtTranslation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTranslation_KeyDown);
-            this.txtTranslation.Leave += new System.EventHandler(this.txtTranslation_Leave);
+            this.txtTranslation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtTranslation_KeyDown);
+            this.txtTranslation.Leave += new System.EventHandler(this.TxtTranslation_Leave);
             // 
             // groupBox1
             // 
@@ -106,7 +106,7 @@
             this.btnNext.TabIndex = 5;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
             // AddForm
             // 

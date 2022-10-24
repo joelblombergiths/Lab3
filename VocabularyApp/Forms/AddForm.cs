@@ -1,6 +1,7 @@
 ﻿using Vocabulary;
+using VocabularyApp.Events;
 
-namespace VocabularyApp
+namespace VocabularyApp.Forms
 {
     public partial class AddForm : Form
     {
@@ -30,7 +31,7 @@ namespace VocabularyApp
             ActiveControl = txtTranslation;
         }
 
-        private void lbLanguages_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
             int currentLanguage = lbLanguages.SelectedIndex;
             if (currentLanguage >= 0)
@@ -48,12 +49,12 @@ namespace VocabularyApp
             }
         }
 
-        private void txtTranslation_Leave(object sender, EventArgs e)
+        private void TxtTranslation_Leave(object sender, EventArgs e)
         {
             SaveWord();
         }
 
-        private void txtTranslation_KeyDown(object sender, KeyEventArgs e)
+        private void TxtTranslation_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
@@ -64,7 +65,7 @@ namespace VocabularyApp
             }
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void BtnNext_Click(object sender, EventArgs e)
         {
             SaveWord();
             GotoNextLanguage();
@@ -81,7 +82,7 @@ namespace VocabularyApp
             if (currentLanguage >= 0 && currentLanguage < lbLanguages.Items.Count - 1) lbLanguages.SelectedIndex++;
         }
 
-        private void btnDone_Click(object sender, EventArgs e)
+        private void BtnDone_Click(object sender, EventArgs e)
         {
             Done();
         }
@@ -108,7 +109,7 @@ namespace VocabularyApp
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }       

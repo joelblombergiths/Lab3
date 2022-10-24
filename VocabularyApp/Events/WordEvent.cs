@@ -1,8 +1,8 @@
-﻿namespace VocabularyApp
+﻿namespace VocabularyApp.Events
 {
     public class WordEvent : EventArgs
     {
-        public string[] Translations { get; set; }
+        public string[] Translations { get; }
 
         public WordEvent(string[] translations)
         {
