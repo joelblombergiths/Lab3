@@ -1,6 +1,6 @@
-﻿namespace VocabularyApp.Classes
+﻿namespace Vocabulary
 {
-    internal class PracticeResult
+    public class PracticeResult
     {
 		public int Correct { get; private set; }
 		public int Total { get; private set; }        

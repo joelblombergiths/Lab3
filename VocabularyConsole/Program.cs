@@ -248,8 +248,7 @@ void Practice(string[] args)
         string name = args[0];
         WordList wordList = WordList.LoadList(name);
 
-        int totalWords = 0;
-        int correctWords = 0;
+        PracticeResult practiceResult = new();
 
         Console.WriteLine();
         Console.WriteLine($"Practice Words on list {name}");
@@ -258,32 +257,32 @@ void Practice(string[] args)
         do
         {
             Word practiceWord = wordList.GetWordToPractice();
+            
             PrintPracticeChallenge(practiceWord, wordList);
 
             string? input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) break;
 
-            totalWords++;
+            practiceResult.CurrentWord = practiceWord.Translations[practiceWord.ToLanguage];
+            bool correctGuess = practiceResult.GuessWord(input);
+            
+            Console.ForegroundColor = correctGuess 
+                ? ConsoleColor.Green 
+                : ConsoleColor.Red;
 
-            string answerWord = practiceWord.Translations[practiceWord.ToLanguage];
-            if (input.ToLower() != answerWord)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Incorrect, the word is {answerWord}");
-                continue;
-            }
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("That's correct!");
-            correctWords++;
-
+            string result = correctGuess
+                ? "That's correct!"
+                : $"Incorrect, the word is {practiceResult.CurrentWord}";
+            
+            Console.WriteLine(result);
+           
         } while (true);
 
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine();
-        Console.WriteLine($"Given the {totalWords} word{(totalWords > 1 ? "s" : string.Empty)} you tried,");
-        Console.WriteLine($"you answered {correctWords} correctly,");
-        Console.WriteLine($"that's a success rate of {(float)correctWords / totalWords * 100:f0}%.");
+        Console.WriteLine($"Given the {practiceResult.Total} word{(practiceResult.Total > 1 ? "s" : string.Empty)} you tried,");
+        Console.WriteLine($"you answered {practiceResult.Correct} correctly,");
+        Console.WriteLine($"that's a success rate of {practiceResult.SuccessRateProcentage:f0}%.");
     }
     catch (Exception ex)
     {

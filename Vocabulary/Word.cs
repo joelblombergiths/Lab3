@@ -15,9 +15,4 @@
             ToLanguage = toLanguage;
         }
     }
-
-    //public record Word(int FromLanguage, int ToLanguage, params string[] Translations)
-    //{
-    //    public Word(params string[] Translations): this(-1, -1, Translations) { }
-    //}
 }

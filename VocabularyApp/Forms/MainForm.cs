@@ -1,5 +1,4 @@
 using Vocabulary;
-using VocabularyApp.Classes;
 using VocabularyApp.Events;
 
 namespace VocabularyApp.Forms
@@ -30,7 +29,7 @@ namespace VocabularyApp.Forms
             loadForm.ShowDialog();
         }
 
-        public void OnListChanged(object? sender, ListEvent e)
+        private void OnListChanged(object? sender, ListEvent e)
         {           
             LoadList(e.List);
         }
