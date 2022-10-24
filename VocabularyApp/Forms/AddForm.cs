@@ -5,8 +5,8 @@ namespace VocabularyApp.Forms
 {
     public partial class AddForm : Form
     {
+        private readonly Dictionary<string, string> _wordTranslations = new();
         private readonly WordList _wordlist;
-        private readonly Dictionary<string, string> wordTranslations;
 
         public event EventHandler<WordEvent>? NewWordAdded;
 
@@ -15,14 +15,13 @@ namespace VocabularyApp.Forms
             InitializeComponent();
 
             _wordlist = wordList;
-            wordTranslations = new();
         }
 
         private void AddForm_Load(object sender, EventArgs e)
         {
             foreach (string language in _wordlist.Languages)
             {
-                wordTranslations.Add(language, string.Empty);
+                _wordTranslations.Add(language, string.Empty);
                 lbLanguages.Items.Add(language);
             }
 
@@ -34,19 +33,17 @@ namespace VocabularyApp.Forms
         private void LbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
             int currentLanguage = lbLanguages.SelectedIndex;
-            if (currentLanguage >= 0)
-            {
-                if (currentLanguage < lbLanguages.Items.Count - 1) btnNext.Enabled = true;
-                else btnNext.Enabled = false;
-                
-                string? language = lbLanguages.SelectedItem?.ToString();
-                if (language != null)
-                {
-                    gbLang.Text = $"Add translation in {language}";
-                    txtTranslation.Text = wordTranslations[language];
-                    txtTranslation.Focus();
-                }
-            }
+
+            if (currentLanguage < 0) return;
+
+            btnNext.Enabled = currentLanguage < lbLanguages.Items.Count - 1;
+
+            string? language = lbLanguages.SelectedItem?.ToString();
+            if (language == null) return;
+
+            gbLang.Text = $"Add translation in {language}";
+            txtTranslation.Text = _wordTranslations[language];
+            txtTranslation.Focus();
         }
 
         private void TxtTranslation_Leave(object sender, EventArgs e)
@@ -56,7 +53,7 @@ namespace VocabularyApp.Forms
 
         private void TxtTranslation_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 SaveWord();
 
@@ -74,7 +71,7 @@ namespace VocabularyApp.Forms
         private void SaveWord()
         {
             string? language = lbLanguages.SelectedItem?.ToString();
-            if (language != null) wordTranslations[language] = txtTranslation.Text;
+            if (language != null) _wordTranslations[language] = txtTranslation.Text;
         }
         private void GotoNextLanguage()
         {
@@ -89,22 +86,17 @@ namespace VocabularyApp.Forms
 
         private void Done()
         {
-            if (wordTranslations.All(x => !string.IsNullOrEmpty(x.Value)))
+            if (_wordTranslations.All(translation => !string.IsNullOrEmpty(translation.Value)))
             {
-                List<string> t = new();
+                string[] translations = _wordlist.Languages.Select(language => _wordTranslations[language]).ToArray();
 
-                foreach (string language in _wordlist.Languages)
-                {
-                    t.Add(wordTranslations[language]);
-                }
-
-                NewWordAdded?.Invoke(null, new(t.ToArray()));
+                NewWordAdded?.Invoke(null, new(translations));
                 Close();
             }
             else
             {
                 MessageBox.Show("All languages needs translations");
-                string language = wordTranslations.First(x => string.IsNullOrEmpty(x.Value)).Key;
+                string language = _wordTranslations.First(x => string.IsNullOrEmpty(x.Value)).Key;
                 lbLanguages.SelectedItem = language;
             }
         }
@@ -112,6 +104,6 @@ namespace VocabularyApp.Forms
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }       
+        }
     }
 }

@@ -46,19 +46,23 @@ namespace VocabularyApp.Forms
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtName.Text))
-                    throw new Exception("Name can't be empty");
+                string? name = txtName.Text;
+                if (string.IsNullOrWhiteSpace(name))
+                    throw new("Name can't be empty");
 
                 if (lbLanguages.Items.Count < 2)
-                    throw new Exception("Add at least 2 languages");
+                    throw new("Add at least 2 languages");
 
-                List<string> languages = new();
-                foreach (string language in lbLanguages.Items)
+                if (WordList.GetLists().Contains(name))
                 {
-                    languages.Add(language);
+                    DialogResult result = MessageBox.Show($"\"{name}\" already exists, overwrite?",
+                        "List Exists",
+                        MessageBoxButtons.YesNo);
+
+                    if(result == DialogResult.No) return;
                 }
 
-                WordList wordList = new(txtName.Text, languages.ToArray());
+                WordList wordList = new(txtName.Text, lbLanguages.Items.Cast<string>().ToArray());
                 wordList.Save();
 
                 ListCreated?.Invoke(null, new(wordList.Name));

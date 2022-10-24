@@ -28,11 +28,10 @@ namespace VocabularyApp.Forms
 
         private void LoadList()
         {
-            if (lbLists.SelectedItem != null)
-            {
-                ListSelected?.Invoke(this, new((string)lbLists.SelectedItem));
-                Close();
-            }
+            if (lbLists.SelectedItem == null) return;
+
+            ListSelected?.Invoke(null, new((string)lbLists.SelectedItem));
+            Close();
         }
     }
 }

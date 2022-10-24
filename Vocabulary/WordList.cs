@@ -32,7 +32,7 @@
                 .Select(file => Path.GetFileNameWithoutExtension(file.FullName))
                 .ToArray();
 
-            return lists.Length > 0 ? lists : Array.Empty<string>();
+            return lists;
         }
 
         public static WordList LoadList(string name)
@@ -67,8 +67,10 @@
                     throw new FileLoadException("Read error, words are incorrectly formatted");
 
                 string[] translations = wordRow
-                    .Split(SeparatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => x.ToLower())
+                    .Split(SeparatorChar, 
+                        StringSplitOptions.TrimEntries 
+                        | StringSplitOptions.RemoveEmptyEntries)
+                    .Select(word => word.ToLower())
                     .ToArray();
 
                 if (translations.Length != languages.Length)
@@ -119,6 +121,7 @@
             return findWord != null && _words.Remove(findWord);
         }
 
+        public void List(Action<string[]> showTranslation) => List(0, showTranslation);
         public void List(int sortByTranslation, Action<string[]> showTranslation)
         {
             if (sortByTranslation < 0 || sortByTranslation >= Languages.Length)

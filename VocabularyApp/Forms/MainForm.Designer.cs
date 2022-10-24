@@ -71,8 +71,7 @@
             this.editToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(1643, 35);
+            this.menuStrip.Size = new System.Drawing.Size(1150, 24);
             this.menuStrip.TabIndex = 4;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -84,32 +83,32 @@
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.LoadToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(267, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -118,14 +117,14 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showWordsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(58, 29);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // showWordsToolStripMenuItem
             // 
             this.showWordsToolStripMenuItem.Enabled = false;
             this.showWordsToolStripMenuItem.Name = "showWordsToolStripMenuItem";
-            this.showWordsToolStripMenuItem.Size = new System.Drawing.Size(215, 34);
+            this.showWordsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.showWordsToolStripMenuItem.Text = "Show Words";
             this.showWordsToolStripMenuItem.Click += new System.EventHandler(this.ShowWordsToolStripMenuItem_Click);
             // 
@@ -139,9 +138,11 @@
             this.gbStats.Controls.Add(this.label2);
             this.gbStats.Controls.Add(this.lblNumWords);
             this.gbStats.Controls.Add(this.label1);
-            this.gbStats.Location = new System.Drawing.Point(12, 49);
+            this.gbStats.Location = new System.Drawing.Point(8, 29);
+            this.gbStats.Margin = new System.Windows.Forms.Padding(2);
             this.gbStats.Name = "gbStats";
-            this.gbStats.Size = new System.Drawing.Size(256, 275);
+            this.gbStats.Padding = new System.Windows.Forms.Padding(2);
+            this.gbStats.Size = new System.Drawing.Size(179, 165);
             this.gbStats.TabIndex = 5;
             this.gbStats.TabStop = false;
             this.gbStats.Text = "No list loaded";
@@ -149,72 +150,80 @@
             // lblAverageWordLength
             // 
             this.lblAverageWordLength.AutoSize = true;
-            this.lblAverageWordLength.Location = new System.Drawing.Point(199, 155);
+            this.lblAverageWordLength.Location = new System.Drawing.Point(139, 93);
+            this.lblAverageWordLength.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAverageWordLength.Name = "lblAverageWordLength";
-            this.lblAverageWordLength.Size = new System.Drawing.Size(22, 25);
+            this.lblAverageWordLength.Size = new System.Drawing.Size(13, 15);
             this.lblAverageWordLength.TabIndex = 7;
             this.lblAverageWordLength.Text = "0";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 155);
+            this.label4.Location = new System.Drawing.Point(4, 93);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(187, 25);
+            this.label4.Size = new System.Drawing.Size(123, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "Average word length: ";
             // 
             // lblNumTranslations
             // 
             this.lblNumTranslations.AutoSize = true;
-            this.lblNumTranslations.Location = new System.Drawing.Point(199, 117);
+            this.lblNumTranslations.Location = new System.Drawing.Point(139, 70);
+            this.lblNumTranslations.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumTranslations.Name = "lblNumTranslations";
-            this.lblNumTranslations.Size = new System.Drawing.Size(22, 25);
+            this.lblNumTranslations.Size = new System.Drawing.Size(13, 15);
             this.lblNumTranslations.TabIndex = 5;
             this.lblNumTranslations.Text = "0";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 117);
+            this.label5.Location = new System.Drawing.Point(4, 70);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(150, 25);
+            this.label5.Size = new System.Drawing.Size(98, 15);
             this.label5.TabIndex = 4;
             this.label5.Text = "# of translations: ";
             // 
             // lblNumLanguages
             // 
             this.lblNumLanguages.AutoSize = true;
-            this.lblNumLanguages.Location = new System.Drawing.Point(199, 81);
+            this.lblNumLanguages.Location = new System.Drawing.Point(139, 49);
+            this.lblNumLanguages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumLanguages.Name = "lblNumLanguages";
-            this.lblNumLanguages.Size = new System.Drawing.Size(22, 25);
+            this.lblNumLanguages.Size = new System.Drawing.Size(13, 15);
             this.lblNumLanguages.TabIndex = 3;
             this.lblNumLanguages.Text = "0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 81);
+            this.label2.Location = new System.Drawing.Point(4, 49);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 25);
+            this.label2.Size = new System.Drawing.Size(91, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "# of languages: ";
             // 
             // lblNumWords
             // 
             this.lblNumWords.AutoSize = true;
-            this.lblNumWords.Location = new System.Drawing.Point(199, 44);
+            this.lblNumWords.Location = new System.Drawing.Point(139, 26);
+            this.lblNumWords.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumWords.Name = "lblNumWords";
-            this.lblNumWords.Size = new System.Drawing.Size(22, 25);
+            this.lblNumWords.Size = new System.Drawing.Size(13, 15);
             this.lblNumWords.TabIndex = 1;
             this.lblNumWords.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 44);
+            this.label1.Location = new System.Drawing.Point(4, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 25);
+            this.label1.Size = new System.Drawing.Size(69, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "# of words: ";
             // 
@@ -224,9 +233,11 @@
             this.groupBox1.Controls.Add(this.btnPractice);
             this.groupBox1.Controls.Add(this.txtGuess);
             this.groupBox1.Controls.Add(this.lblPractice);
-            this.groupBox1.Location = new System.Drawing.Point(274, 49);
+            this.groupBox1.Location = new System.Drawing.Point(192, 29);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1098, 275);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(769, 165);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Practice";
@@ -234,9 +245,10 @@
             // btnGuess
             // 
             this.btnGuess.Enabled = false;
-            this.btnGuess.Location = new System.Drawing.Point(743, 104);
+            this.btnGuess.Location = new System.Drawing.Point(520, 62);
+            this.btnGuess.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuess.Name = "btnGuess";
-            this.btnGuess.Size = new System.Drawing.Size(112, 34);
+            this.btnGuess.Size = new System.Drawing.Size(78, 25);
             this.btnGuess.TabIndex = 3;
             this.btnGuess.Text = "Guess";
             this.btnGuess.UseVisualStyleBackColor = true;
@@ -245,9 +257,10 @@
             // btnPractice
             // 
             this.btnPractice.Enabled = false;
-            this.btnPractice.Location = new System.Drawing.Point(141, 192);
+            this.btnPractice.Location = new System.Drawing.Point(99, 115);
+            this.btnPractice.Margin = new System.Windows.Forms.Padding(2);
             this.btnPractice.Name = "btnPractice";
-            this.btnPractice.Size = new System.Drawing.Size(847, 34);
+            this.btnPractice.Size = new System.Drawing.Size(595, 27);
             this.btnPractice.TabIndex = 2;
             this.btnPractice.Text = "Start";
             this.btnPractice.UseVisualStyleBackColor = true;
@@ -256,20 +269,22 @@
             // txtGuess
             // 
             this.txtGuess.Enabled = false;
-            this.txtGuess.Location = new System.Drawing.Point(271, 107);
+            this.txtGuess.Location = new System.Drawing.Point(190, 64);
+            this.txtGuess.Margin = new System.Windows.Forms.Padding(2);
             this.txtGuess.Name = "txtGuess";
-            this.txtGuess.Size = new System.Drawing.Size(453, 31);
+            this.txtGuess.Size = new System.Drawing.Size(318, 23);
             this.txtGuess.TabIndex = 1;
             this.txtGuess.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtGuess_KeyDown);
             // 
             // lblPractice
             // 
             this.lblPractice.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblPractice.Location = new System.Drawing.Point(24, 31);
+            this.lblPractice.Location = new System.Drawing.Point(17, 19);
+            this.lblPractice.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPractice.Name = "lblPractice";
-            this.lblPractice.Size = new System.Drawing.Size(1050, 41);
+            this.lblPractice.Size = new System.Drawing.Size(735, 33);
             this.lblPractice.TabIndex = 0;
-            this.lblPractice.Text = "Load a word list";
+            this.lblPractice.Text = "Load/Create a word list";
             this.lblPractice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox2
@@ -280,18 +295,21 @@
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.lblNumWordInSession);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Location = new System.Drawing.Point(1378, 49);
+            this.groupBox2.Location = new System.Drawing.Point(965, 29);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(256, 275);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(179, 165);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Practice stats";
             // 
             // lblSuccessPercentage
             // 
-            this.lblSuccessPercentage.Location = new System.Drawing.Point(194, 117);
+            this.lblSuccessPercentage.Location = new System.Drawing.Point(136, 70);
+            this.lblSuccessPercentage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSuccessPercentage.Name = "lblSuccessPercentage";
-            this.lblSuccessPercentage.Size = new System.Drawing.Size(62, 25);
+            this.lblSuccessPercentage.Size = new System.Drawing.Size(43, 15);
             this.lblSuccessPercentage.TabIndex = 5;
             this.lblSuccessPercentage.Text = "0";
             this.lblSuccessPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -299,60 +317,64 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 117);
+            this.label8.Location = new System.Drawing.Point(4, 70);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 25);
+            this.label8.Size = new System.Drawing.Size(71, 15);
             this.label8.TabIndex = 4;
             this.label8.Text = "Success rate";
             // 
             // lblNumCorrectGuesses
             // 
             this.lblNumCorrectGuesses.AutoSize = true;
-            this.lblNumCorrectGuesses.Location = new System.Drawing.Point(216, 81);
+            this.lblNumCorrectGuesses.Location = new System.Drawing.Point(151, 49);
+            this.lblNumCorrectGuesses.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumCorrectGuesses.Name = "lblNumCorrectGuesses";
-            this.lblNumCorrectGuesses.Size = new System.Drawing.Size(22, 25);
+            this.lblNumCorrectGuesses.Size = new System.Drawing.Size(13, 15);
             this.lblNumCorrectGuesses.TabIndex = 3;
             this.lblNumCorrectGuesses.Text = "0";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 81);
+            this.label10.Location = new System.Drawing.Point(4, 49);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(181, 25);
+            this.label10.Size = new System.Drawing.Size(118, 15);
             this.label10.TabIndex = 2;
             this.label10.Text = "# of correct guesses: ";
             // 
             // lblNumWordInSession
             // 
             this.lblNumWordInSession.AutoSize = true;
-            this.lblNumWordInSession.Location = new System.Drawing.Point(216, 44);
+            this.lblNumWordInSession.Location = new System.Drawing.Point(151, 26);
+            this.lblNumWordInSession.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumWordInSession.Name = "lblNumWordInSession";
-            this.lblNumWordInSession.Size = new System.Drawing.Size(22, 25);
+            this.lblNumWordInSession.Size = new System.Drawing.Size(13, 15);
             this.lblNumWordInSession.TabIndex = 1;
             this.lblNumWordInSession.Text = "0";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 44);
+            this.label12.Location = new System.Drawing.Point(4, 26);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(204, 25);
+            this.label12.Size = new System.Drawing.Size(132, 15);
             this.label12.TabIndex = 0;
             this.label12.Text = "# of words this session: ";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1643, 340);
+            this.ClientSize = new System.Drawing.Size(1150, 204);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbStats);
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -43,31 +43,27 @@
             // lbLanguages
             // 
             this.lbLanguages.FormattingEnabled = true;
-            this.lbLanguages.ItemHeight = 25;
-            this.lbLanguages.Location = new System.Drawing.Point(9, 37);
-            this.lbLanguages.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lbLanguages.ItemHeight = 15;
+            this.lbLanguages.Location = new System.Drawing.Point(6, 22);
             this.lbLanguages.Name = "lbLanguages";
-            this.lbLanguages.Size = new System.Drawing.Size(170, 204);
-            this.lbLanguages.TabIndex = 0;
+            this.lbLanguages.Size = new System.Drawing.Size(120, 124);
+            this.lbLanguages.TabIndex = 10;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtName);
-            this.groupBox1.Location = new System.Drawing.Point(17, 20);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(364, 95);
+            this.groupBox1.Size = new System.Drawing.Size(255, 57);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Name";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(9, 37);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtName.Location = new System.Drawing.Point(6, 22);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(345, 31);
+            this.txtName.Size = new System.Drawing.Size(243, 23);
             this.txtName.TabIndex = 0;
             // 
             // groupBox2
@@ -76,21 +72,18 @@
             this.groupBox2.Controls.Add(this.txtLanguage);
             this.groupBox2.Controls.Add(this.btnAdd);
             this.groupBox2.Controls.Add(this.lbLanguages);
-            this.groupBox2.Location = new System.Drawing.Point(17, 125);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(12, 75);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(364, 268);
+            this.groupBox2.Size = new System.Drawing.Size(255, 161);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Languages";
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(189, 205);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRemove.Location = new System.Drawing.Point(132, 123);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(167, 38);
+            this.btnRemove.Size = new System.Drawing.Size(117, 23);
             this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -98,19 +91,17 @@
             // 
             // txtLanguage
             // 
-            this.txtLanguage.Location = new System.Drawing.Point(189, 37);
-            this.txtLanguage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtLanguage.Location = new System.Drawing.Point(132, 22);
             this.txtLanguage.Name = "txtLanguage";
-            this.txtLanguage.Size = new System.Drawing.Size(165, 31);
-            this.txtLanguage.TabIndex = 2;
+            this.txtLanguage.Size = new System.Drawing.Size(117, 23);
+            this.txtLanguage.TabIndex = 1;
             this.txtLanguage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtLanguage_KeyDown);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(189, 85);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd.Location = new System.Drawing.Point(132, 51);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(167, 38);
+            this.btnAdd.Size = new System.Drawing.Size(117, 23);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -118,10 +109,9 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(17, 403);
-            this.btnCreate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCreate.Location = new System.Drawing.Point(12, 242);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(364, 38);
+            this.btnCreate.Size = new System.Drawing.Size(255, 23);
             this.btnCreate.TabIndex = 3;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -129,14 +119,13 @@
             // 
             // NewForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 462);
+            this.ClientSize = new System.Drawing.Size(278, 277);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewForm";

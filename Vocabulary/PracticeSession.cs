@@ -1,6 +1,6 @@
 ﻿namespace Vocabulary
 {
-    public class PracticeResult
+    public class PracticeSession
     {
 		public int Correct { get; private set; }
 		public int Total { get; private set; }        
@@ -23,7 +23,7 @@
             return true;
         }
 
-		public PracticeResult()
+		public PracticeSession()
 		{
 			Correct = 0;
 			Total = 0;

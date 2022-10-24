@@ -8,10 +8,10 @@ namespace VocabularyApp.Forms
     {
         private readonly WordList _wordList;
 
-        private readonly List<string[]> addedWords = new();
-        private readonly List<string[]> removedWords = new();
+        private readonly List<string[]> _addedWords = new();
+        private readonly List<string[]> _removedWords = new();
 
-        private bool wordsLoading;
+        private bool _wordsLoading;
 
         public ViewForm(WordList wordList)
         {
@@ -27,7 +27,7 @@ namespace VocabularyApp.Forms
                 dgvList.Columns.Add(language, language);
             }
 
-            cbLanguage.Items.AddRange(_wordList?.Languages);
+            cbLanguage.Items.AddRange(_wordList.Languages);
             if (cbLanguage.Items.Count > 0) cbLanguage.SelectedIndex = 0;
         }
 
@@ -40,38 +40,34 @@ namespace VocabularyApp.Forms
 
         private void ReloadList(int sort = 0)
         {
+            if (_wordsLoading) return;
+
             if (sort < 0 || sort >= _wordList.Languages.Length) sort = 0;
+            
+            _wordsLoading = true;
 
-            if (!wordsLoading)
-            {
-                wordsLoading = true;
+            btnAdd.Enabled = false;
+            btnRemove.Enabled = false;
+            btnSave.Enabled = false;
+            btnClose.Enabled = false;
+            cbLanguage.Enabled = false;
 
-                btnAdd.Enabled = false;
-                btnRemove.Enabled = false;
-                btnSave.Enabled = false;
-                btnClose.Enabled = false;
-                cbLanguage.Enabled = false;
+            pbLoadingBar.Value = 0;
+            pbLoadingBar.Maximum = _wordList.Count;
 
-                pbLoadingBar.Value = 0;
-                pbLoadingBar.Maximum = _wordList.Count;
+            gbLoading.Visible = true;
 
-                gbLoading.Visible = true;
+            dgvList.Visible = false;
+            dgvList.Rows.Clear();
 
-                dgvList.Visible = false;
-                dgvList.Rows.Clear();
-
-                Task.Run(() => LoadWords(sort, _wordList));
-            }
+            Task.Run(() => LoadWords(sort, _wordList));
         }
 
         private void LoadWords(int sort, WordList wordList)
         {
             try
             {
-                wordList.List(sort, translations =>
-                {
-                    LoadWord(translations);
-                });
+                wordList.List(sort, LoadWord);
 
                 LoadWordsComplete();
             }
@@ -103,7 +99,7 @@ namespace VocabularyApp.Forms
                 btnClose.Enabled = true;
                 cbLanguage.Enabled = true;
 
-                wordsLoading = false;
+                _wordsLoading = false;
             });
         }
 
@@ -144,8 +140,8 @@ namespace VocabularyApp.Forms
 
         private void OnWordAdded(object? sender, WordEvent e)
         {
-            if (ModifiedThisSession(e.Translations, removedWords, out int index)) removedWords.RemoveAt(index);
-            else addedWords.Add(e.Translations);
+            if (ModifiedThisSession(e.Translations, _removedWords, out int index)) _removedWords.RemoveAt(index);
+            else _addedWords.Add(e.Translations);
 
             dgvList.Rows.Add(e.Translations);
         }
@@ -164,31 +160,29 @@ namespace VocabularyApp.Forms
         {
             try
             {
-                if (dgvList.SelectedRows.Count > 0)
+                if (dgvList.SelectedRows.Count <= 0) return;
+
+                DialogResult remove = MessageBox
+                    .Show("Are you sure you want to delete this word?",
+                        "Delete Word",
+                        MessageBoxButtons.YesNo);
+
+                if (remove == DialogResult.No) return;
+
+                DataGridViewRow selectedRow = dgvList.SelectedRows[0];
+
+                List<string> cellValues = new();
+                foreach (DataGridViewCell cell in selectedRow.Cells)
                 {
-                    DialogResult remove = MessageBox
-                       .Show("Are you sure you want to delete this word?",
-                       "Delete Word",
-                       MessageBoxButtons.YesNo);
-
-                    if (remove == DialogResult.Yes)
-                    {
-                        DataGridViewRow selectedRow = dgvList.SelectedRows[0];
-
-                        List<string> cellValues = new();
-                        foreach (DataGridViewCell cell in selectedRow.Cells)
-                        {
-                            cellValues.Add(cell.Value.ToString().ToLower());
-                        }
-
-                        string[] translations = cellValues.ToArray();
-
-                        if (ModifiedThisSession(translations, addedWords, out int index)) addedWords.RemoveAt(index);
-                        else removedWords.Add(translations);
-
-                        dgvList.Rows.Remove(selectedRow);
-                    }
+                    cellValues.Add(cell.Value.ToString().ToLower());
                 }
+
+                string[] translations = cellValues.ToArray();
+
+                if (ModifiedThisSession(translations, _addedWords, out int index)) _addedWords.RemoveAt(index);
+                else _removedWords.Add(translations);
+
+                dgvList.Rows.Remove(selectedRow);
             }
             catch (Exception ex)
             {
@@ -196,7 +190,7 @@ namespace VocabularyApp.Forms
             }
         }
 
-        private bool ModifiedThisSession(string[] translations, List<string[]> list, out int index)
+        private static bool ModifiedThisSession(string[] translations, List<string[]> list, out int index)
         {
             index = list.FindIndex(t => t.SequenceEqual(translations));
             return index >= 0;
@@ -209,7 +203,7 @@ namespace VocabularyApp.Forms
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            if (addedWords.Count > 0 || removedWords.Count > 0)
+            if (_addedWords.Count > 0 || _removedWords.Count > 0)
             {
                 DialogResult save = MessageBox.Show("Save changes to disk?",
                                 "Unsaved Changes",
@@ -227,27 +221,27 @@ namespace VocabularyApp.Forms
             {
                 StringBuilder sb = new();
 
-                sb.Append(addedWords.Count > 0
-                    ? $"adding {addedWords.Count} word{(addedWords.Count > 1 ? "s" : string.Empty)}"
+                sb.Append(_addedWords.Count > 0
+                    ? $"adding {_addedWords.Count} word{(_addedWords.Count > 1 ? "s" : string.Empty)}"
                     : string.Empty);
 
-                sb.Append(addedWords.Count > 0 && removedWords.Count > 0
+                sb.Append(_addedWords.Count > 0 && _removedWords.Count > 0
                     ? " and "
                     : string.Empty);
 
-                sb.Append(removedWords.Count > 0
-                    ? $"removing {removedWords.Count} word{(removedWords.Count > 1 ? "s" : string.Empty)}"
+                sb.Append(_removedWords.Count > 0
+                    ? $"removing {_removedWords.Count} word{(_removedWords.Count > 1 ? "s" : string.Empty)}"
                     : string.Empty);
 
                 if (sb.Length > 0) MessageBox.Show(sb.ToString());
 
-                removedWords.ForEach(translation => _wordList.Remove(0, translation[0]));
-                addedWords.ForEach(translation => _wordList.Add(translation));
+                _removedWords.ForEach(translation => _wordList.Remove(0, translation[0]));
+                _addedWords.ForEach(translation => _wordList.Add(translation));
 
-                if (removedWords.Count > 0 || addedWords.Count > 0) _wordList.Save();
+                if (_removedWords.Count > 0 || _addedWords.Count > 0) _wordList.Save();
 
-                removedWords.Clear();
-                addedWords.Clear();
+                _removedWords.Clear();
+                _addedWords.Clear();
             }
             catch (Exception ex)
             {
