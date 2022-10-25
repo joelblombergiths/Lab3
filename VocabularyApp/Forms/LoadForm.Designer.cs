@@ -35,20 +35,18 @@
             // lbLists
             // 
             this.lbLists.FormattingEnabled = true;
-            this.lbLists.ItemHeight = 25;
-            this.lbLists.Location = new System.Drawing.Point(13, 20);
-            this.lbLists.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lbLists.ItemHeight = 15;
+            this.lbLists.Location = new System.Drawing.Point(9, 12);
             this.lbLists.Name = "lbLists";
-            this.lbLists.Size = new System.Drawing.Size(264, 229);
+            this.lbLists.Size = new System.Drawing.Size(186, 139);
             this.lbLists.TabIndex = 0;
             this.lbLists.DoubleClick += new System.EventHandler(this.LbLists_DoubleClick);
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(13, 262);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnLoad.Location = new System.Drawing.Point(9, 157);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(266, 57);
+            this.btnLoad.Size = new System.Drawing.Size(186, 34);
             this.btnLoad.TabIndex = 1;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -56,13 +54,13 @@
             // 
             // LoadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AcceptButton = this.btnLoad;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 330);
+            this.ClientSize = new System.Drawing.Size(207, 198);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.lbLists);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoadForm";
@@ -70,7 +68,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Load";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.LoadForm_Load);
             this.ResumeLayout(false);
 

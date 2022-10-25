@@ -4,7 +4,7 @@
     {
 		public int Correct { get; private set; }
 		public int Total { get; private set; }        
-		public float SuccessRateProcentage => (float)Correct / Total * 100;
+		public float SuccessRatePercentage => (float)Correct / Total * 100;
 
 		private string _currentWord = string.Empty;
 		public string CurrentWord
@@ -22,11 +22,5 @@
             Correct++;
             return true;
         }
-
-		public PracticeSession()
-		{
-			Correct = 0;
-			Total = 0;
-		}
     }
 }

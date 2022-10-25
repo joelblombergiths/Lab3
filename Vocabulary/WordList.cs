@@ -42,7 +42,7 @@
             FileInfo file = new(Path.Combine(DataPath.FullName, $"{name}.dat"));
 
             if (!file.Exists)
-                throw new ArgumentException($"No list with name \"{name}\" found", nameof(name));
+                throw new ArgumentException($"No list with name \"{name}\" found");
 
             using StreamReader reader = new(file.FullName);
 
@@ -114,7 +114,7 @@
         public bool Remove(int translation, string word)
         {
             if (translation < 0 || translation >= Languages.Length)
-                throw new ArgumentOutOfRangeException(nameof(translation), translation, "Language does not exists");
+                throw new ArgumentException("Language does not exists");
 
             Word? findWord = _words.Find(w => w.Translations[translation] == word.ToLower());
 
@@ -125,7 +125,7 @@
         public void List(int sortByTranslation, Action<string[]> showTranslation)
         {
             if (sortByTranslation < 0 || sortByTranslation >= Languages.Length)
-                throw new ArgumentOutOfRangeException(nameof(sortByTranslation), sortByTranslation, "Language does not exists");
+                throw new ArgumentException("Language does not exists");
 
             var sorted = _words.OrderBy(word => word.Translations[sortByTranslation]);
 
@@ -137,7 +137,7 @@
 
         public Word GetWordToPractice()
         {
-            if (Languages.Length <= 1)
+            if (Languages.Length < 2)
                 throw new($"List {Name} does not contain enough languages");
 
             if (_words.Count <= 0)

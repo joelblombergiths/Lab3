@@ -195,12 +195,12 @@
             this.addWordToolStripMenuItem,
             this.removeWordToolStripMenuItem});
             this.rowMenu.Name = "rowMenu";
-            this.rowMenu.Size = new System.Drawing.Size(181, 70);
+            this.rowMenu.Size = new System.Drawing.Size(150, 48);
             // 
             // addWordToolStripMenuItem
             // 
             this.addWordToolStripMenuItem.Name = "addWordToolStripMenuItem";
-            this.addWordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addWordToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.addWordToolStripMenuItem.Text = "Add Word";
             this.addWordToolStripMenuItem.Click += new System.EventHandler(this.AddWordToolStripMenuItem_Click);
             // 
@@ -208,7 +208,7 @@
             // 
             this.removeWordToolStripMenuItem.Enabled = false;
             this.removeWordToolStripMenuItem.Name = "removeWordToolStripMenuItem";
-            this.removeWordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.removeWordToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.removeWordToolStripMenuItem.Text = "Remove Word";
             this.removeWordToolStripMenuItem.Click += new System.EventHandler(this.RemoveWordToolStripMenuItem_Click);
             // 
@@ -225,7 +225,6 @@
             this.Name = "ViewForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "All Words";
             this.Load += new System.EventHandler(this.ViewForm_Load);

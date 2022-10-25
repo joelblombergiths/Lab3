@@ -32,15 +32,11 @@ namespace VocabularyApp.Forms
 
         private void LbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int currentLanguage = lbLanguages.SelectedIndex;
-
-            if (currentLanguage < 0) return;
-
-            btnNext.Enabled = currentLanguage < lbLanguages.Items.Count - 1;
-
             string? language = lbLanguages.SelectedItem?.ToString();
             if (language == null) return;
-
+            
+            btnNext.Enabled = lbLanguages.SelectedIndex < lbLanguages.Items.Count - 1;
+            
             gbLang.Text = $"Add translation in {language}";
             txtTranslation.Text = _wordTranslations[language];
             txtTranslation.Focus();

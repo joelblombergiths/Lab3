@@ -1,8 +1,7 @@
 {
   "profiles": {
     "VocabularyConsole": {
-      "commandName": "Project",
-      "commandLineArgs": "-new test swedish english"
+      "commandName": "Project"
     }
   }
 }

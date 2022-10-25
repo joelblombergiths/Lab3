@@ -6,9 +6,8 @@ namespace VocabularyApp.Forms
     public partial class MainForm : Form
     {
         private WordList? _wordList;
-
-        private bool _practiceActive;
         private PracticeSession? _practiceSession;
+        private bool _practiceActive;
 
         public MainForm()
         {
@@ -19,7 +18,9 @@ namespace VocabularyApp.Forms
         {
             NewForm newForm = new();
             newForm.ListCreated += OnListChanged;
-            newForm.ShowDialog();
+            DialogResult newListResult = newForm.ShowDialog();
+
+            if (newListResult != DialogResult.Cancel) OpenShowWordsForm();
         }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace VocabularyApp.Forms
 
         private void ShowWordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenShowWordsForm();
+        }
+
+        private void OpenShowWordsForm()
+        {
             if (_wordList == null) return;
 
             ViewForm viewForm = new(_wordList);
@@ -75,14 +81,19 @@ namespace VocabularyApp.Forms
 
         private void UpdateListStats()
         {
-            gbStats.Text = _wordList?.Name;
-            lblNumWords.Text = _wordList?.Count.ToString();
-            lblNumLanguages.Text = _wordList?.Languages.Length.ToString();
+            gbStats.Text = _wordList?.Name ?? "No list";
+            lblNumWords.Text = _wordList?.Count.ToString() ?? "0";
+            lblNumLanguages.Text = _wordList?.Languages.Length.ToString() ?? "0";
 
             List<string[]> translations = new();
             _wordList?.List(translation => translations.Add(translation));
 
-            if(translations.Count <= 0) return;
+            if (translations.Count <= 0)
+            {
+                lblNumTranslations.Text = "0";
+                lblAverageWordLength.Text = "0";
+                return;
+            }
 
             lblNumTranslations.Text = translations
                 .Select(translation => translation.Length)
@@ -172,9 +183,17 @@ namespace VocabularyApp.Forms
 
         private void UpdatePracticeStats(bool reset = false)
         {
-            lblNumWordInSession.Text = reset ? "0" : _practiceSession?.Total.ToString();
-            lblNumCorrectGuesses.Text = reset ? "0" : _practiceSession?.Correct.ToString();
-            lblSuccessPercentage.Text = reset ? "0" : $"{_practiceSession?.SuccessRateProcentage:f0}%";
+            lblNumWordInSession.Text = reset
+                ? "0"
+                : _practiceSession?.Total.ToString();
+
+            lblNumCorrectGuesses.Text = reset
+                ? "0"
+                : _practiceSession?.Correct.ToString();
+
+            lblSuccessPercentage.Text = reset
+                ? "0"
+                : $"{_practiceSession?.SuccessRatePercentage:f0}%";
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

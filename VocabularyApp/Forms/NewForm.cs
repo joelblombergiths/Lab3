@@ -67,6 +67,7 @@ namespace VocabularyApp.Forms
 
                 ListCreated?.Invoke(null, new(wordList.Name));
 
+                DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)

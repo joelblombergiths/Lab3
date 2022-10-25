@@ -59,7 +59,8 @@ void PrintArgsHelp()
 
 void Lists(string[] args)
 {
-    if (args.Length != 0) throw new ArgumentException("Usage:\n-lists");
+    if (args.Length != 0) 
+        throw new ArgumentException("Usage:\n-lists");
 
     string[] lists = WordList.GetLists();
 
@@ -74,7 +75,8 @@ void Lists(string[] args)
 
 void New(string[] args)
 {
-    if (args.Length < 3) throw new ArgumentException("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}");
+    if (args.Length < 3) 
+        throw new ArgumentException("Usage:\n-new <listname> <language 1> <language 2> .. {langauge n}");
 
     string name = args[0];
 
@@ -98,7 +100,8 @@ void New(string[] args)
 
 void Add(string[] args)
 {
-    if (args.Length != 1) throw new ArgumentException("Usage:\n-add <listname>");
+    if (args.Length != 1) 
+        throw new ArgumentException("Usage:\n-add <listname>");
 
     string name = args[0];
 
@@ -151,7 +154,8 @@ void Add(string[] args)
 
 void Remove(string[] args)
 {
-    if (args.Length < 3) throw new ArgumentException("Usage:\n-remove <listname> <language> <word 1>..{word n}");
+    if (args.Length < 3)
+        throw new ArgumentException("Usage:\n-remove <listname> <language> <word 1>..{word n}");
 
     string name = args[0];
 
@@ -160,7 +164,8 @@ void Remove(string[] args)
     string language = args[1].ToLower();
     int languageId = Array.IndexOf(wordList.Languages, language);
 
-    if (languageId < 0) throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
+    if (languageId < 0) 
+        throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
 
     string[] wordsToRemove = args[2..];
 
@@ -176,7 +181,8 @@ void Remove(string[] args)
 
 void Words(string[] args)
 {
-    if (args.Length != 1 && args.Length != 2) throw new ArgumentException("Usage:\n-words <listname> {sortByLanguage}");
+    if (args.Length != 1 && args.Length != 2)
+        throw new ArgumentException("Usage:\n-words <listname> {sortByLanguage}");
 
     string name = args[0];
 
@@ -194,7 +200,8 @@ void Words(string[] args)
         string language = args[1].ToLower();
         sort = Array.IndexOf(wordList.Languages, language);
 
-        if (sort < 0) throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
+        if (sort < 0) 
+            throw new KeyNotFoundException($"Language \"{language}\" does not exist in this WordList.");
     }
 
     Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -206,7 +213,8 @@ void Words(string[] args)
 
 void Count(string[] args)
 {
-    if (args.Length != 1) throw new ArgumentException("Usage:\n-count <listname>");
+    if (args.Length != 1) 
+        throw new ArgumentException("Usage:\n-count <listname>");
 
     string name = args[0];
     WordList wordList = WordList.LoadList(name);
@@ -220,7 +228,8 @@ void Count(string[] args)
 
 void Practice(string[] args)
 {
-    if (args.Length != 1) throw new ArgumentException("Usage:\n-practice <listname>");
+    if (args.Length != 1)
+        throw new ArgumentException("Usage:\n-practice <listname>");
 
     string name = args[0];
     WordList wordList = WordList.LoadList(name);
@@ -247,7 +256,7 @@ void Practice(string[] args)
     Console.WriteLine();
     Console.WriteLine($"Given the {practiceSession.Total} word{(practiceSession.Total > 1 ? "s" : string.Empty)} you tried,");
     Console.WriteLine($"you answered {practiceSession.Correct} correctly,");
-    Console.WriteLine($"that's a success rate of {practiceSession.SuccessRateProcentage:f0}%.");
+    Console.WriteLine($"that's a success rate of {practiceSession.SuccessRatePercentage:f0}%.");
 }
 
 
