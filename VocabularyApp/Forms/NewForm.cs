@@ -1,4 +1,5 @@
-﻿using Vocabulary;
+﻿using System.Linq;
+using Vocabulary;
 using VocabularyApp.Events;
 
 namespace VocabularyApp.Forms
@@ -50,8 +51,13 @@ namespace VocabularyApp.Forms
                 if (string.IsNullOrWhiteSpace(name))
                     throw new("Name can't be empty");
 
-                if (lbLanguages.Items.Count < 2)
+                string[] languages = lbLanguages.Items.Cast<string>().ToArray();
+
+                if (languages.Length < 2)
                     throw new("Add at least 2 languages");
+
+                if (languages.GroupBy(language => language).Any(group => group.Count() > 1))
+                    throw new("Can't add duplicate languages");
 
                 if (WordList.GetLists().Contains(name))
                 {
@@ -62,7 +68,7 @@ namespace VocabularyApp.Forms
                     if(result == DialogResult.No) return;
                 }
 
-                WordList wordList = new(txtName.Text, lbLanguages.Items.Cast<string>().ToArray());
+                WordList wordList = new(txtName.Text, languages);
                 wordList.Save();
 
                 ListCreated?.Invoke(null, new(wordList.Name));
