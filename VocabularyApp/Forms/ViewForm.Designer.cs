@@ -60,13 +60,14 @@
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
+            this.dgvList.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
             this.dgvList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvList.RowTemplate.Height = 25;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvList.ShowEditingIcon = false;
-            this.dgvList.Size = new System.Drawing.Size(743, 372);
+            this.dgvList.Size = new System.Drawing.Size(1380, 794);
             this.dgvList.TabIndex = 0;
             this.dgvList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DgvList_MouseDown);
             // 
@@ -76,9 +77,10 @@
             this.cbLanguage.Enabled = false;
             this.cbLanguage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbLanguage.FormattingEnabled = true;
-            this.cbLanguage.Location = new System.Drawing.Point(12, 38);
+            this.cbLanguage.Location = new System.Drawing.Point(22, 81);
+            this.cbLanguage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.cbLanguage.Name = "cbLanguage";
-            this.cbLanguage.Size = new System.Drawing.Size(125, 23);
+            this.cbLanguage.Size = new System.Drawing.Size(229, 40);
             this.cbLanguage.TabIndex = 1;
             this.cbLanguage.SelectedIndexChanged += new System.EventHandler(this.CbLanguage_SelectedIndexChanged);
             // 
@@ -92,8 +94,9 @@
             this.pMenu.Controls.Add(this.btnSave);
             this.pMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pMenu.Location = new System.Drawing.Point(0, 0);
+            this.pMenu.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pMenu.Name = "pMenu";
-            this.pMenu.Size = new System.Drawing.Size(743, 85);
+            this.pMenu.Size = new System.Drawing.Size(1380, 181);
             this.pMenu.TabIndex = 3;
             // 
             // btnClose
@@ -101,9 +104,10 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Enabled = false;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClose.Location = new System.Drawing.Point(656, 24);
+            this.btnClose.Location = new System.Drawing.Point(1218, 51);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 49);
+            this.btnClose.Size = new System.Drawing.Size(139, 105);
             this.btnClose.TabIndex = 7;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -112,9 +116,10 @@
             // lblLang
             // 
             this.lblLang.AutoSize = true;
-            this.lblLang.Location = new System.Drawing.Point(12, 20);
+            this.lblLang.Location = new System.Drawing.Point(22, 43);
+            this.lblLang.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblLang.Name = "lblLang";
-            this.lblLang.Size = new System.Drawing.Size(83, 15);
+            this.lblLang.Size = new System.Drawing.Size(168, 32);
             this.lblLang.TabIndex = 2;
             this.lblLang.Text = "Sort Language";
             // 
@@ -122,9 +127,10 @@
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.Enabled = false;
-            this.btnRemove.Location = new System.Drawing.Point(475, 24);
+            this.btnRemove.Location = new System.Drawing.Point(882, 51);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 49);
+            this.btnRemove.Size = new System.Drawing.Size(139, 105);
             this.btnRemove.TabIndex = 5;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -134,9 +140,10 @@
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd.Enabled = false;
-            this.btnAdd.Location = new System.Drawing.Point(394, 24);
+            this.btnAdd.Location = new System.Drawing.Point(732, 51);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 49);
+            this.btnAdd.Size = new System.Drawing.Size(139, 105);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -147,9 +154,10 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(575, 24);
+            this.btnSave.Location = new System.Drawing.Point(1068, 51);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 49);
+            this.btnSave.Size = new System.Drawing.Size(139, 105);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -161,9 +169,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbLoading.Controls.Add(this.pbLoadingBar);
-            this.gbLoading.Location = new System.Drawing.Point(245, 139);
+            this.gbLoading.Location = new System.Drawing.Point(455, 297);
+            this.gbLoading.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.gbLoading.Name = "gbLoading";
-            this.gbLoading.Size = new System.Drawing.Size(200, 37);
+            this.gbLoading.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gbLoading.Size = new System.Drawing.Size(371, 79);
             this.gbLoading.TabIndex = 6;
             this.gbLoading.TabStop = false;
             this.gbLoading.Text = "Loading List...";
@@ -172,9 +182,10 @@
             // pbLoadingBar
             // 
             this.pbLoadingBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoadingBar.Location = new System.Drawing.Point(3, 19);
+            this.pbLoadingBar.Location = new System.Drawing.Point(6, 38);
+            this.pbLoadingBar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pbLoadingBar.Name = "pbLoadingBar";
-            this.pbLoadingBar.Size = new System.Drawing.Size(194, 15);
+            this.pbLoadingBar.Size = new System.Drawing.Size(359, 35);
             this.pbLoadingBar.Step = 1;
             this.pbLoadingBar.TabIndex = 0;
             // 
@@ -183,9 +194,10 @@
             this.pBody.Controls.Add(this.gbLoading);
             this.pBody.Controls.Add(this.dgvList);
             this.pBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pBody.Location = new System.Drawing.Point(0, 85);
+            this.pBody.Location = new System.Drawing.Point(0, 181);
+            this.pBody.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pBody.Name = "pBody";
-            this.pBody.Size = new System.Drawing.Size(743, 372);
+            this.pBody.Size = new System.Drawing.Size(1380, 794);
             this.pBody.TabIndex = 4;
             // 
             // rowMenu
@@ -195,12 +207,12 @@
             this.addWordToolStripMenuItem,
             this.removeWordToolStripMenuItem});
             this.rowMenu.Name = "rowMenu";
-            this.rowMenu.Size = new System.Drawing.Size(150, 48);
+            this.rowMenu.Size = new System.Drawing.Size(239, 80);
             // 
             // addWordToolStripMenuItem
             // 
             this.addWordToolStripMenuItem.Name = "addWordToolStripMenuItem";
-            this.addWordToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.addWordToolStripMenuItem.Size = new System.Drawing.Size(238, 38);
             this.addWordToolStripMenuItem.Text = "Add Word";
             this.addWordToolStripMenuItem.Click += new System.EventHandler(this.AddWordToolStripMenuItem_Click);
             // 
@@ -208,25 +220,27 @@
             // 
             this.removeWordToolStripMenuItem.Enabled = false;
             this.removeWordToolStripMenuItem.Name = "removeWordToolStripMenuItem";
-            this.removeWordToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.removeWordToolStripMenuItem.Size = new System.Drawing.Size(238, 38);
             this.removeWordToolStripMenuItem.Text = "Remove Word";
             this.removeWordToolStripMenuItem.Click += new System.EventHandler(this.RemoveWordToolStripMenuItem_Click);
             // 
             // ViewForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(743, 457);
+            this.ClientSize = new System.Drawing.Size(1380, 975);
             this.Controls.Add(this.pBody);
             this.Controls.Add(this.pMenu);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(508, 193);
+            this.MinimumSize = new System.Drawing.Size(921, 331);
             this.Name = "ViewForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "All Words";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ViewForm_FormClosing);
             this.Load += new System.EventHandler(this.ViewForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
             this.pMenu.ResumeLayout(false);

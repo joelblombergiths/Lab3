@@ -203,16 +203,20 @@ namespace VocabularyApp.Forms
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
+            CheckClosing();
+            Close();
+        }
+
+        private void CheckClosing()
+        {
             if (_addedWords.Count > 0 || _removedWords.Count > 0)
             {
                 DialogResult save = MessageBox.Show("Save changes to disk?",
-                                "Unsaved Changes",
-                                MessageBoxButtons.YesNo);
+                    "Unsaved Changes",
+                    MessageBoxButtons.YesNo);
 
                 if (save == DialogResult.Yes) SaveChanges();
             }
-
-            Close();
         }
 
         private void SaveChanges()
@@ -247,6 +251,11 @@ namespace VocabularyApp.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void ViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CheckClosing();
         }
     }
 }
